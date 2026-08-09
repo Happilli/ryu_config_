@@ -1,0 +1,40 @@
+[config]
+reload_apps = false
+reload_apps_list = []
+# set_wallpaper = false
+
+[config.reload]
+
+[templates.quickshell]
+input_path = "~/.config/matugen/templates/quickshell.json"
+output_path = "~/.local/state/safalQuick/colors.json"
+
+[templates.kitty]
+input_path = "~/.config/matugen/templates/kitty.conf"
+output_path = "~/.local/state/safalQuick/kitty.conf"
+post_hook = 'pkill -SIGUSR1 kitty'
+
+[templates.monkeytype]
+input_path  = "~/.config/matugen/templates/monkeytype.json"
+output_path = "~/.local/state/safalQuick/monkeytype.json"
+
+[templates.hyprland]
+input_path  = "~/.config/matugen/templates/colors.lua"
+output_path = "~/.config/hypr/conf/colors.lua"
+post_hook = 'hyprctl reload'
+
+[templates.obsidian]
+input_path  = "~/.config/matugen/templates/obsidian.css"
+output_path ="~/toughNot/notes/.obsidian/snippets/style.css"
+
+[templates.medisync-admin]
+input_path = "~/.config/matugen/templates/medisync-admin.ini"
+output_path = "~/.config/medisync-admin/config.ini"
+
+[templates.typeshi]
+input_path = "~/.config/matugen/templates/typeshi.ini"
+output_path = "~/.config/typeShi/config.ini"
+
+[templates.typeshi-flatpak]
+input_path = "~/.config/matugen/templates/typeshi.ini"
+output_path = "~/.var/app/np.com.safallama.typeshi/config/typeShi/config.ini"

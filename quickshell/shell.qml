@@ -1,0 +1,39 @@
+//@ pragma DropExpensiveFonts
+pragma ComponentBehavior: Bound
+import QtQuick
+import Quickshell
+import qs.layers
+import qs.utils
+import qs.Ipc
+import qs.Modules.lockscreen
+
+ShellRoot {
+
+    Scope {
+        IpcRegistry {}
+        Hyperixon {}  //  top
+        Home {} // background
+        Oppression {}
+
+        LazyLoader {
+            id: sessionLockLoader
+
+            component: Component {
+                SessionLock {
+                    onRequestUnload: {
+                        Qt.callLater(() => {
+                            sessionLockLoader.active = false;
+                        });
+                    }
+                }
+            }
+        }
+
+        Connections {
+            target: LockConfig
+            function onLockRequested() {
+                sessionLockLoader.active = true;
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+hl.config({ animations = { enabled = true } })
+
+hl.curve("spring_workspace", { type = "spring", mass = 0.8, stiffness = 740, dampening = 25 })
+hl.curve("spring_special", { type = "spring", mass = 0.7, stiffness = 720, dampening = 25 })
+hl.curve("spring_move", { type = "spring", mass = 0.8, stiffness = 720, dampening = 25 })
+
+hl.animation({ leaf = "windowsIn", enabled = false })
+hl.animation({ leaf = "border", enabled = false })
+hl.animation({ leaf = "borderangle", enabled = false })
+hl.animation({ leaf = "windowsOut", enabled = false })
+hl.animation({ leaf = "fadeIn", enabled = false })
+hl.animation({ leaf = "windowsMove", enabled = true, speed = 1.0, spring = "spring_move", style = "slide" })
+hl.animation({ leaf = "fadeOut", enabled = false })
+hl.animation({ leaf = "workspaces", enabled = true, speed = 1.0, spring = "spring_workspace", style = "slide" })
+hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 1.0, spring = "spring_special", style = "slidevert" })
