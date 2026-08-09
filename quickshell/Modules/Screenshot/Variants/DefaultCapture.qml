@@ -9,10 +9,12 @@ Item {
 
     ScreencopyView {
         id: screcopy
-        captureSource: root.screen
+
+        captureSource: root.screen ? root.screen : null
         live: false
-        width: root.screen.width
-        height: root.screen.height
+
+        width: root.screen ? root.screen.width : 0
+        height: root.screen ? root.screen.height : 0
 
         onHasContentChanged: {
             if (hasContent) {
@@ -32,7 +34,4 @@ Item {
         }
     }
 
-    Component.onCompleted: {
-        screcopy.captureFrame();
-    }
 }
