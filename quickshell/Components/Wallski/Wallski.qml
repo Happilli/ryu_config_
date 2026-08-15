@@ -102,6 +102,7 @@ Item {
         onTriggered: {
             root.contentVisible = false;
             searchBox.text = "";
+            searchBox.clearFocus();
         }
     }
 

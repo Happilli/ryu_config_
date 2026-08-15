@@ -17,22 +17,6 @@ Item {
         Component.onCompleted: calendar.setToday()
     }
 
-    component NavButton: MorphButton {
-        id: navBtn
-        signal activated
-
-        width: 40
-        height: 40
-        baseRadius: 20
-        hoverRadius: 20
-        contentPixelSize: 20
-        inactiveText: Theme.onSurface
-        activeText: Theme.onPrimaryContainer
-        hoverColor: Theme.primaryContainer
-        onClicked: navBtn.activated()
-        enabled: !eventSheet.visible
-    }
-
     Card {
         id: calendarCard
 
@@ -65,14 +49,32 @@ Item {
                     anchors.right: parent.right
                     spacing: 6
 
-                    NavButton {
+                    MorphButton {
+                        width: 40
+                        height: 40
+                        baseRadius: 20
+                        hoverRadius: 20
+                        contentPixelSize: 20
+                        inactiveText: Theme.onSurface
+                        activeText: Theme.onPrimaryContainer
+                        hoverColor: Theme.primaryContainer
                         label: "<"
-                        onActivated: calendar.previousMonth()
+                        enabled: !eventSheet.visible
+                        onClicked: calendar.previousMonth()
                     }
 
-                    NavButton {
+                    MorphButton {
+                        width: 40
+                        height: 40
+                        baseRadius: 20
+                        hoverRadius: 20
+                        contentPixelSize: 20
+                        inactiveText: Theme.onSurface
+                        activeText: Theme.onPrimaryContainer
+                        hoverColor: Theme.primaryContainer
                         label: ">"
-                        onActivated: calendar.nextMonth()
+                        enabled: !eventSheet.visible
+                        onClicked: calendar.nextMonth()
                     }
                 }
             }

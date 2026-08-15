@@ -17,6 +17,9 @@ Rectangle {
     function forceActiveFocus() {
         input.forceActiveFocus();
     }
+    function clearFocus() {
+        input.focus = false;
+    }
 
     height: root.inputHeight
     radius: 12
