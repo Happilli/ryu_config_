@@ -1,93 +1,147 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
-import Qt5Compat.GraphicalEffects
+import QtQuick.Effects
 import qs.Services.Theme
 import qs.Services.Paths
+import qs.Services.Shapes
+import qs.utils
 
 Rectangle {
     id: root
     required property var context
+    signal animationDone
+
+    property bool exiting: false
 
     color: Theme.backgroundColor
 
     Image {
+        id: blurBg
         anchors.fill: parent
-        source: "file://" + PathService.home + "/.cache/safalQuick/bg.jpg"
+        source: "file://" + LockConfig.screenshotPath
         fillMode: Image.PreserveAspectCrop
-
-        Rectangle {
-            anchors.fill: parent
-            color: Theme.backgroundColor
-            opacity: 0.7
-        }
+        cache: false
+        layer.enabled: true
     }
 
-    Text {
-        id: quoteLabel
-        anchors {
-            horizontalCenter: parent.horizontalCenter
-            top: parent.top
-            topMargin: 100
+    MultiEffect {
+        id: blurEffect
+        anchors.fill: blurBg
+        source: blurBg
+        blurEnabled: true
+        blur: 0.0
+        blurMax: 32
+        autoPaddingEnabled: false
+    }
+
+    Item {
+        id: introContainer
+        anchors.centerIn: parent
+        width: 400
+        height: childrenRect.height
+        opacity: 0
+
+        transform: Translate {
+            id: introTranslate
+            y: -60
         }
 
-        width: parent.width * 0.5
-        horizontalAlignment: Text.AlignHCenter
-        wrapMode: Text.WordWrap
+        Component.onCompleted: entrySequence.start()
 
-        font.pointSize: 18
-        font.italic: true
-        color: Theme.primaryFixed
-        opacity: 0.95
+        ParallelAnimation {
+            id: entrySequence
 
-        text: passwordBox.text.length > 0 ? "hell yea!!" : "Do you love red panda?"
-
-        Behavior on text {
+            NumberAnimation {
+                target: blurEffect
+                property: "blur"
+                to: 0.8
+                duration: 900
+                easing.type: Easing.OutCubic
+            }
+            NumberAnimation {
+                target: introContainer
+                property: "opacity"
+                to: 1
+                duration: 500
+                easing.type: Easing.OutQuad
+            }
+            NumberAnimation {
+                target: introTranslate
+                property: "y"
+                from: -60
+                to: 0
+                duration: 700
+                easing.type: Easing.OutBack
+                easing.overshoot: 1.1
+            }
             SequentialAnimation {
-                NumberAnimation {
-                    target: quoteLabel
-                    property: "opacity"
-                    to: 0
-                    duration: 150
-                }
-                PropertyAction {
-                    target: quoteLabel
-                    property: "text"
+                PauseAnimation {
+                    duration: 400
                 }
                 NumberAnimation {
                     target: quoteLabel
                     property: "opacity"
                     to: 0.95
-                    duration: 150
+                    duration: 400
+                    easing.type: Easing.OutCubic
                 }
             }
         }
-    }
 
-    Item {
-        anchors.centerIn: parent
-        width: 400
-        height: childrenRect.height
+        SequentialAnimation {
+            id: exitSequence
+            running: false
+
+            PauseAnimation {
+                duration: 180
+            }
+
+            ParallelAnimation {
+                NumberAnimation {
+                    target: introTranslate
+                    property: "y"
+                    to: -60
+                    duration: 550
+                    easing.type: Easing.InCubic
+                }
+                NumberAnimation {
+                    target: introContainer
+                    property: "opacity"
+                    to: 0
+                    duration: 450
+                    easing.type: Easing.InCubic
+                }
+                NumberAnimation {
+                    target: quoteLabel
+                    property: "opacity"
+                    to: 0
+                    duration: 300
+                    easing.type: Easing.InCubic
+                }
+                NumberAnimation {
+                    target: blurEffect
+                    property: "blur"
+                    to: 0.0
+                    duration: 650
+                    easing.type: Easing.InOutQuad
+                }
+            }
+
+            ScriptAction {
+                script: root.animationDone()
+            }
+        }
 
         ColumnLayout {
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: 30
 
             Item {
+                id: pfpItem
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredWidth: 200
                 Layout.preferredHeight: 200
-
-                Rectangle {
-                    anchors.centerIn: parent
-                    width: parent.width + 20
-                    height: parent.height + 20
-                    radius: width / 2
-                    color: "transparent"
-                    border.color: root.context.showFailure ? Theme.errorColor : Theme.primaryFixedDim
-                    border.width: 1
-                    opacity: 0.3
-                }
 
                 Repeater {
                     model: passwordBox.text.length
@@ -145,32 +199,21 @@ Rectangle {
                     id: pfpContainer
                     anchors.fill: parent
                     radius: width / 2
-                    color: root.context.showFailure ? Theme.errorColor : Theme.primaryContainer
+                    color: "transparent"
 
-                    Image {
-                        id: pfpImage
+                    ShapeCanvas {
+                        id: pfpShape
                         anchors.fill: parent
-                        anchors.margins: 4
-                        source: "file://" + PathService.home + "/.cache/safalQuick/pfp.jpeg"
-                        fillMode: Image.PreserveAspectCrop
-                        smooth: true
-                        asynchronous: true
-                        cache: false
+                        roundedPolygon: root.context.showFailure ? GetMShapes.get(25) : GetMShapes.get(18)
+                        instantMorph: root.context.showFailure
+                        color: "transparent"
+                        imageSource: "file://" + PathService.home + "/.cache/safalQuick/pfp.jpeg"
+                        borderWidth: 2
+                        borderColor: root.context.showFailure ? Theme.errorColor : Theme.primaryContainer
 
-                        layer.enabled: true
-                        layer.effect: OpacityMask {
-                            maskSource: Rectangle {
-                                width: pfpContainer.width - 8
-                                height: pfpContainer.height - 8
-                                radius: width / 2
-                            }
-                        }
-
-                        onStatusChanged: {
-                            if (status === Image.Error) {
-                                console.error("failed to Load Pfp", source);
-                            } else if (status === Image.Ready) {
-                                console.log("pfp success");
+                        Behavior on borderColor {
+                            ColorAnimation {
+                                duration: root.context.showFailure ? 0 : 200
                             }
                         }
                     }
@@ -181,7 +224,7 @@ Rectangle {
                         font.pointSize: 64
                         font.weight: Font.Light
                         color: Theme.onPrimaryContainer
-                        visible: pfpImage.status === Image.Error
+                        visible: !pfpShape.imageReady
                     }
 
                     MouseArea {
@@ -191,14 +234,6 @@ Rectangle {
                             passwordBox.forceActiveFocus();
                         }
                     }
-                }
-
-                Rectangle {
-                    anchors.fill: parent
-                    radius: width / 2
-                    color: "transparent"
-                    border.color: root.context.showFailure ? Theme.errorColor : Theme.primaryFixed
-                    border.width: 3
                 }
             }
 
@@ -213,22 +248,74 @@ Rectangle {
                 }
 
                 onTextChanged: {
-                    root.context.currentText = text;
+                    if (!root.exiting)
+                        root.context.currentText = text;
                 }
 
                 onAccepted: root.context.tryUnlock()
 
                 Connections {
                     target: root.context
-                    function onCurrentTextChanged() {
-                        passwordBox.text = root.context.currentText;
-                        passwordBox.forceActiveFocus();
+                    function onShowFailureChanged() {
+                        if (root.context.showFailure) {
+                            passwordBox.text = "";
+                            passwordBox.forceActiveFocus();
+                        }
                     }
                 }
             }
         }
     }
 
+    Text {
+        id: quoteLabel
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            top: parent.top
+            topMargin: 100
+        }
+
+        width: parent.width * 0.5
+        horizontalAlignment: Text.AlignHCenter
+        wrapMode: Text.WordWrap
+
+        font.pointSize: 18
+        font.italic: true
+        color: Theme.primaryFixed
+        opacity: 0
+
+        property string lastNonEmptyText: "Do you love red panda?"
+        property string liveText: passwordBox.text.length > 0 ? "hell yea!!" : "Do you love red panda?"
+
+        onLiveTextChanged: {
+            if (!root.exiting && passwordBox.text.length > 0)
+                lastNonEmptyText = liveText;
+        }
+
+        text: root.exiting ? lastNonEmptyText : liveText
+
+        Behavior on text {
+            enabled: !root.exiting
+            SequentialAnimation {
+                NumberAnimation {
+                    target: quoteLabel
+                    property: "opacity"
+                    to: 0
+                    duration: 150
+                }
+                PropertyAction {
+                    target: quoteLabel
+                    property: "text"
+                }
+                NumberAnimation {
+                    target: quoteLabel
+                    property: "opacity"
+                    to: 0.95
+                    duration: 150
+                }
+            }
+        }
+    }
     Text {
         anchors {
             horizontalCenter: parent.horizontalCenter
@@ -245,6 +332,13 @@ Rectangle {
             NumberAnimation {
                 duration: 200
             }
+        }
+    }
+    Connections {
+        target: root.context
+        function onUnlocked() {
+            root.exiting = true;
+            exitSequence.start();
         }
     }
 }

@@ -14,6 +14,7 @@ Singleton {
     property bool isCapturing: false
     property bool isPreviewing: false
     property string previewPath: ""
+    property bool silent: false
 
     property var lassoPoints: []
 

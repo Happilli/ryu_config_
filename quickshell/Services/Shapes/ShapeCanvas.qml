@@ -12,6 +12,8 @@ Canvas {
     property real xOffset: 0
     property real yOffset: 0
     property string imageSource: ""
+    property bool imageReady: false
+    property bool instantMorph: false
 
     property var bounds: roundedPolygon ? roundedPolygon.calculateBounds() : [0, 0, 100, 100]
     implicitWidth: bounds[2] - bounds[0]
@@ -27,22 +29,25 @@ Canvas {
     }
 
     onImageSourceChanged: {
+        root.imageReady = false;
         if (imageSource !== "")
             loadImage(imageSource);
     }
 
-    onImageLoaded: requestPaint()
+    onImageLoaded: {
+        root.imageReady = true;
+        requestPaint();
+    }
 
     onRoundedPolygonChanged: {
         delete root.morph;
         root.morph = new Morph.Morph(root.prevRoundedPolygon ?? root.roundedPolygon, root.roundedPolygon);
         morphBehavior.enabled = false;
-        root.progress = 0;
+        root.progress = root.instantMorph ? 1 : 0;
         morphBehavior.enabled = true;
         root.progress = 1;
         root.prevRoundedPolygon = root.roundedPolygon;
     }
-
     Behavior on progress {
         id: morphBehavior
         animation: root.animation
@@ -68,7 +73,7 @@ Canvas {
 
         const inset = root.borderWidth / 2;
         const size = Math.min(root.width, root.height) - root.borderWidth;
-        const hasImage = root.imageSource !== "" && root.isImageLoaded(root.imageSource);
+        const hasImage = root.imageSource !== "" && root.imageReady && root.isImageLoaded(root.imageSource);
 
         function buildPathScaled() {
             ctx.beginPath();

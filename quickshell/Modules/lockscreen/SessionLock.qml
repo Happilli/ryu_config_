@@ -13,10 +13,6 @@ Item {
 
     LockContext {
         id: lockContext
-        onUnlocked: {
-            lock.locked = false;
-            root.requestUnload();
-        }
     }
 
     WlSessionLock {
@@ -26,6 +22,10 @@ Item {
             LockSurface {
                 anchors.fill: parent
                 context: lockContext
+                onAnimationDone: {
+                    lock.locked = false;
+                    root.requestUnload();
+                }
             }
         }
     }

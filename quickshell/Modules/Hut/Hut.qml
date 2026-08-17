@@ -133,24 +133,26 @@ Item {
             property real contentOpacity: (root.isHovered || root.isPinned) ? 1 : 0
             property real contentTranslateX: (root.isHovered || root.isPinned) ? 0 : 30
 
-            Behavior on contentOpacity {
-                NumberAnimation {
-                    duration: 350
-                    easing.type: Easing.OutCubic
-                }
-            }
-            Behavior on contentTranslateX {
-                NumberAnimation {
-                    duration: 350
-                    easing.type: Easing.OutCubic
-                }
+            onLoaded: {
+                item.opacity = 0;
+                item.x = 30;
+                item.opacity = Qt.binding(() => contentLoader.contentOpacity);
+                item.x = Qt.binding(() => contentLoader.contentTranslateX);
             }
 
             sourceComponent: Component {
                 Item {
-                    opacity: contentLoader.contentOpacity
-                    transform: Translate {
-                        x: contentLoader.contentTranslateX
+                    Behavior on opacity {
+                        NumberAnimation {
+                            duration: 350
+                            easing.type: Easing.OutCubic
+                        }
+                    }
+                    Behavior on x {
+                        NumberAnimation {
+                            duration: 350
+                            easing.type: Easing.OutCubic
+                        }
                     }
 
                     Column {

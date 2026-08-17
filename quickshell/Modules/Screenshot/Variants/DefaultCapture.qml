@@ -25,13 +25,14 @@ Item {
                     }
                     const bmpPath = "/tmp/qs_screenshot_" + Date.now() + ".bmp";
                     result.saveToFile(bmpPath);
-                    ScreenshotConfig.previewPath = bmpPath;
-                    ScreenshotConfig.isPreviewing = true;
+                    if (!ScreenshotConfig.silent) {
+                        ScreenshotConfig.previewPath = bmpPath;
+                        ScreenshotConfig.isPreviewing = true;
+                    }
                     ScreenshotConfig.captureReady(bmpPath);
                     ScreenshotConfig.dismiss();
                 });
             }
         }
     }
-
 }

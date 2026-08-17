@@ -25,6 +25,19 @@ Item {
         cardRadius: 20
         surface: Theme.surfaceContainer
 
+        Behavior on width {
+            NumberAnimation {
+                duration: 220
+                easing.type: Easing.OutCubic
+            }
+        }
+        Behavior on height {
+            NumberAnimation {
+                duration: 220
+                easing.type: Easing.OutCubic
+            }
+        }
+
         Column {
             id: calendarContent
 

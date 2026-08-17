@@ -21,7 +21,7 @@ Item {
     onCurrentTabChanged: charModel.category = root.currentTab
 
     implicitWidth: 480
-    implicitHeight: 700
+    implicitHeight: 800
 
     SlidingTabBar {
         id: tabBar

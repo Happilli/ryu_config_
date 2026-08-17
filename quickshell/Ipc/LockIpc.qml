@@ -10,7 +10,7 @@ Item {
         target: "lock"
 
         function lock(): string {
-            LockConfig.lockRequested();
+            LockConfig.captureAndLock();
             return "Screen locked";
         }
     }
