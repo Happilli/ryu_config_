@@ -90,15 +90,7 @@ Scope {
                                 }
                             }
                         }
-                        Loader {
-                            anchors.fill: parent
-                            active: ScreenshotConfig.isActive && screenScope.isPrimary
-                            sourceComponent: Component {
-                                Screenshot {
-                                    screen: screenScope.modelData
-                                }
-                            }
-                        }
+
                         Loader {
                             id: chernobylLoader
                             anchors.centerIn: parent
@@ -148,6 +140,15 @@ Scope {
                                 top: parent.top
                                 rightMargin: 4
                                 topMargin: 4
+                            }
+                        }
+                        Loader {
+                            anchors.fill: parent
+                            active: ScreenshotConfig.isActive && screenScope.isPrimary
+                            sourceComponent: Component {
+                                Screenshot {
+                                    screen: screenScope.modelData
+                                }
                             }
                         }
                     }
