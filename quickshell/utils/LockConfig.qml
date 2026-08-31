@@ -36,10 +36,7 @@ QtObject {
         function onCaptureReady(path: string) {
             _captureConn.enabled = false;
             ScreenshotConfig.silent = false;
-            _converter.command = [
-                "sh", "-c",
-                "magick " + path + " -quality 80 " + root.screenshotPath + " && rm " + path
-            ];
+            _converter.command = ["sh", "-c", "magick " + path + " -quality 80 " + root.screenshotPath + " && rm " + path];
             _converter.running = true;
         }
     }

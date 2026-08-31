@@ -31,7 +31,7 @@ Item {
             accentOnFill: Theme.onPrimaryContainer
             trackFill: Theme.primaryContainer
             icons: ["\uf026", "\uf027", "\uf027", "\uf028"]
-            onScrub: (delta) => adjustVolume(delta)
+            onScrub: delta => adjustVolume(delta)
 
             function adjustVolume(delta) {
                 OsdConfig.adjustVolume(delta > 0 ? "2%+" : "2%-");
@@ -48,7 +48,7 @@ Item {
             accentOnFill: Theme.onPrimaryContainer
             trackFill: Theme.primaryContainer
             icons: ["", "\udb80\udcde", "\udb80\udcdd", "\udb80\udce0"]
-            onScrub: (delta) => applyScrub(delta)
+            onScrub: delta => applyScrub(delta)
 
             property int brightnessVal: 0
             property bool ready: false
@@ -67,7 +67,7 @@ Item {
                 }
 
                 function onCurrentValueChanged() {
-                    if (OsdConfig.mode === "brightness"){
+                    if (OsdConfig.mode === "brightness") {
                         brightSlider.brightnessVal = OsdConfig.currentValue;
                     }
                 }
@@ -155,7 +155,7 @@ Item {
                     maxVal: CommunicationConfig.gammaMax
                     accentFill: Theme.primaryContainer
                     trackFill: Theme.surfaceBright
-                    onScrub: (delta) => scrubGamma(delta)
+                    onScrub: delta => scrubGamma(delta)
 
                     property real smoothVal: CommunicationConfig.gamma
 
@@ -167,8 +167,10 @@ Item {
                     }
 
                     function scrubGamma(delta) {
-                        if (delta > 0) CommunicationConfig.increaseGamma();
-                        else CommunicationConfig.decreaseGamma();
+                        if (delta > 0)
+                            CommunicationConfig.increaseGamma();
+                        else
+                            CommunicationConfig.decreaseGamma();
                     }
 
                     Connections {
@@ -201,7 +203,7 @@ Item {
                     maxVal: CommunicationConfig.tempMax
                     accentFill: Theme.primaryContainer
                     trackFill: Theme.surfaceBright
-                    onScrub: (delta) => scrubTemperature(delta)
+                    onScrub: delta => scrubTemperature(delta)
 
                     property real smoothVal: CommunicationConfig.temperature
 
@@ -213,8 +215,10 @@ Item {
                     }
 
                     function scrubTemperature(delta) {
-                        if (delta > 0) CommunicationConfig.increaseTemperature();
-                        else CommunicationConfig.decreaseTemperature();
+                        if (delta > 0)
+                            CommunicationConfig.increaseTemperature();
+                        else
+                            CommunicationConfig.decreaseTemperature();
                     }
 
                     Connections {
@@ -253,7 +257,9 @@ Item {
             text: iconButton.icon
             font.pixelSize: 15
             color: iconButton.active ? iconButton.activeIconColor : iconButton.inactiveIconColor
-            Behavior on color { ColorBehavior {} }
+            Behavior on color {
+                ColorBehavior {}
+            }
         }
 
         MouseArea {
@@ -297,7 +303,10 @@ Item {
                 color: ms.trackFill
                 Behavior on height {
                     enabled: ms.animate
-                    NumberAnimation { duration: 120; easing.type: Easing.OutCubic }
+                    NumberAnimation {
+                        duration: 120
+                        easing.type: Easing.OutCubic
+                    }
                 }
             }
 
@@ -307,10 +316,17 @@ Item {
                 text: ms.currentIcon
                 font.pixelSize: 16
                 color: ms.fillFrac > 0.15 ? ms.accentOnFill : Theme.onSurfaceVariant
-                Behavior on color { ColorAnimation { duration: 80 } }
+                Behavior on color {
+                    ColorAnimation {
+                        duration: 80
+                    }
+                }
                 Behavior on y {
                     enabled: ms.animate
-                    NumberAnimation { duration: 120; easing.type: Easing.OutCubic }
+                    NumberAnimation {
+                        duration: 120
+                        easing.type: Easing.OutCubic
+                    }
                 }
             }
 
@@ -320,14 +336,17 @@ Item {
                 property real startY: 0
                 property real startVal: 0
 
-                onPressed: (mouse) => { startY = mouse.y; startVal = ms.value; }
-                onPositionChanged: (mouse) => handleDrag(mouse)
-                onWheel: (wheel) => handleWheel(wheel)
+                onPressed: mouse => {
+                    startY = mouse.y;
+                    startVal = ms.value;
+                }
+                onPositionChanged: mouse => handleDrag(mouse)
+                onWheel: wheel => handleWheel(wheel)
 
                 function handleDrag(mouse) {
                     const delta = Math.round((startY - mouse.y) / ms.height * 100);
                     const newVal = Math.max(0, Math.min(100, Math.round(startVal + delta)));
-                    if (newVal !== ms.value){
+                    if (newVal !== ms.value) {
                         ms.scrubBy(newVal - ms.value);
                     }
                     if (newVal > 0 && newVal < 100) {
