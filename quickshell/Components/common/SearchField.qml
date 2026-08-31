@@ -24,7 +24,7 @@ Rectangle {
     height: root.inputHeight
     radius: 12
     color: Theme.surfaceContainer
-    border.color: input.activeFocus ? Theme.outlineVariant : "transparent"
+    border.color: Theme.outlineVariant
     border.width: 1
     clip: true
 

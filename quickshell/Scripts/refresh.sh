@@ -57,4 +57,5 @@ rm -f "$HOME_DIR/.wget-hsts"
 rm -f "$HOME_DIR/.config/mimeapps.list"
 
 find /tmp -mindepth 1 -user "$USER" -exec rm -rf {} + 2>/dev/null
-journalctl --vacuum-time=1s
+sudo journalctl --rotate
+sudo journalctl --vacuum-time=1s

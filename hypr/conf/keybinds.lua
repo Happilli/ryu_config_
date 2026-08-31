@@ -48,11 +48,12 @@ local exec_binds = {
 	{ mainMod .. " + period", qs .. " ipc call chernobyl toggle" },
 	{ "ALT + W", qs .. " ipc call artiqa toggle" },
 	{ "ALT + Q", "qtcreator" },
-	{ "ALT + R", "hyprland-run" },
-	-- { "ALT + B", "bruno --ozone-platform=wayland" },
+	{
+		"ALT + R",
+		"pkill -2 wl-screenrec || wl-screenrec -f ~/Videos/$(date +%Y-%m-%d_%H-%M-%S).mp4 --audio --audio-device 52",
+		{ locked = true },
+	},
 	{ "ALT + B", "bruno" },
-	-- { "ALT + P", "pokemmo-launcher" },
-
 	{ "ALT + P", "hyprpicker -a" },
 	{ "CTRL + ALT + W", "libreoffice --writer" },
 	{ "CTRL + ALT + E", "libreoffice --calc" },
