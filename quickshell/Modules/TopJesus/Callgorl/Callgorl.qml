@@ -6,14 +6,12 @@ import qs.Components.common
 
 Item {
     id: root
-
     readonly property var configs: ({
             "dancer": ToggleConfigs.dancer,
             "omnitrix": ToggleConfigs.omnitrix,
             "poketwo": ToggleConfigs.poketwo,
             "paimonclock": PaimonClockConfig
         })
-
     function toggle(service) {
         const config = root.configs[service];
         if (!config)
@@ -134,51 +132,15 @@ Item {
 
                 PillSegment {
                     anchors.fill: parent
-
                     active: btn.isActive
                     icon: btn.modelData.icon
                     contentPixelSize: 26
-
-                    activeColor: btn.modelData.activeColor
-                    activeBorderColor: btn.modelData.activeBorder
-                    activeTextColor: btn.modelData.activeText
-                    inactiveColor: Theme.surfaceContainerHigh
-                    hoverColor: Theme.surfaceContainerHighest
-                    inactiveTextColor: Theme.onSurface
-
-                    activeBorderWidth: 1
+                    activeBorderWidth: 2
                     inactiveBorderWidth: 1
-
                     topLeftRadius: btn.isActive ? root.outerRadius : btn.inactiveLeftR
                     bottomLeftRadius: btn.isActive ? root.outerRadius : btn.inactiveLeftR
                     topRightRadius: btn.isActive ? root.outerRadius : btn.inactiveRightR
                     bottomRightRadius: btn.isActive ? root.outerRadius : btn.inactiveRightR
-
-                    Behavior on topLeftRadius {
-                        NumberAnimation {
-                            duration: 250
-                            easing.type: Easing.OutCubic
-                        }
-                    }
-                    Behavior on bottomLeftRadius {
-                        NumberAnimation {
-                            duration: 250
-                            easing.type: Easing.OutCubic
-                        }
-                    }
-                    Behavior on topRightRadius {
-                        NumberAnimation {
-                            duration: 250
-                            easing.type: Easing.OutCubic
-                        }
-                    }
-                    Behavior on bottomRightRadius {
-                        NumberAnimation {
-                            duration: 250
-                            easing.type: Easing.OutCubic
-                        }
-                    }
-
                     onClicked: root.toggle(btn.modelData.service)
                 }
             }

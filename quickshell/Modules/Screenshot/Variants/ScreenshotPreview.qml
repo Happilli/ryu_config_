@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell.Io
 import qs.Services.Theme
+import qs.Services.Paths
 import qs.Configuration.Screenshot
 
 Item {
@@ -36,8 +37,8 @@ Item {
             actionProc.exec(["sh", "-c", `magick ${ScreenshotConfig.previewPath} ${format}:- | wl-copy -t ${mimeType} && rm ${ScreenshotConfig.previewPath}`]);
         } else if (type === "save") {
             const ts = new Date().toISOString().replace(/[:.]/g, "-").replace("T", "_").slice(0, 19);
-            const dest = `/home/safalski/photos/screenshot_${ts}.${isLasso ? "png" : "jpg"}`;
-            actionProc.exec(["sh", "-c", `magick ${ScreenshotConfig.previewPath} ${dest} && rm ${ScreenshotConfig.previewPath}`]);
+            const dest = PathService.home + `/photos/screenshot_${ts}.${isLasso ? "png" : "jpg"}`;
+            actionProc.exec(["sh", "-c", `magick "${ScreenshotConfig.previewPath}" ${dest} && rm ${ScreenshotConfig.previewPath}`]);
         }
     }
 

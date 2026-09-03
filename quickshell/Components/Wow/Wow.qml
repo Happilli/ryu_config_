@@ -34,7 +34,6 @@ Item {
     readonly property real gridHeight: root.rows * root.workspaceHeight + (root.rows - 1) * root.gridSpacing
     readonly property real gridX: (root.width - root.gridWidth) / 2
     readonly property real gridY: (root.height - root.gridHeight) / 2
-
     Repeater {
         model: root.workspacesShown
 
@@ -48,7 +47,8 @@ Item {
             readonly property HyprlandWorkspace wsp: Hyprland.workspaces.values.find(s => {
                 return s.id === workspaceId;
             }) || null
-            readonly property var geo: WowService.workspaceGeometry(wsp)
+
+            readonly property var geo: WowService.workspaceGeometry(wsp, workspaceWrapper.workspaceId)
             readonly property var geoScale: WowService.scaleFactors(geo, root.workspaceWidth, root.workspaceHeight)
             readonly property var validToplevels: geo.valid
 
@@ -86,21 +86,11 @@ Item {
                 }
 
                 Connections {
-                    function onObjectInsertedPre() {
-                        Hyprland.refreshToplevels();
+                    target: Hyprland.toplevels
+                    function onValuesChanged() {
+                        WowService.requestRefresh();
                     }
-                    function onObjectInsertedPost() {
-                        Hyprland.refreshToplevels();
-                    }
-                    function onObjectRemovedPre() {
-                        Hyprland.refreshToplevels();
-                    }
-                    function onObjectRemovedPost() {
-                        Hyprland.refreshToplevels();
-                    }
-                    target: workspaceWrapper.wsp ? workspaceWrapper.wsp.toplevels : null
                 }
-
                 Repeater {
                     model: workspaceWrapper.validToplevels
 

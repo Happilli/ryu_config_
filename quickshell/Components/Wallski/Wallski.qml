@@ -12,16 +12,13 @@ import qs.Components.common
 
 Item {
     id: root
-
     property bool isHovered: false
     property bool isRefreshing: false
     property bool contentVisible: false
     readonly property string thumbsPath: PathService.home + "/thumbs/"
     readonly property string picturesPath: PathService.home + "/Pictures/"
     readonly property string thumbsUrl: "file://" + PathService.home + "/thumbs/"
-
     signal wallpaperChanged(string path)
-
     function positionToCurrentWallpaper() {
         if (!WallpaperConfig.currentWallpaper)
             return;
@@ -310,25 +307,20 @@ Item {
                                 active: Theme.currentSchemeType === modelData
                                 label: Theme.getSchemeDisplayName(modelData)
                                 contentPixelSize: 12
-
                                 topLeftRadius: index === 0 ? 22 : 6
                                 bottomLeftRadius: index === 0 ? 22 : 6
                                 topRightRadius: index === Theme.schemeTypes.length - 1 ? 22 : 6
                                 bottomRightRadius: index === Theme.schemeTypes.length - 1 ? 22 : 6
-
                                 activeBorderWidth: 1
-                                inactiveBorderWidth: 0
-
+                                inactiveBorderWidth: 1
                                 onIsHoveredChanged: schemeRow.hoveredIndex = isHovered ? index : (schemeRow.hoveredIndex === index ? -1 : schemeRow.hoveredIndex)
                                 onClicked: Theme.setSchemeType(modelData)
-
                                 Behavior on width {
                                     NumberAnimation {
                                         duration: 220
                                         easing.type: Easing.OutCubic
                                     }
                                 }
-
                                 Text {
                                     id: sbTxt
                                     visible: false
