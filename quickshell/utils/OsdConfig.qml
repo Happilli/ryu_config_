@@ -26,13 +26,12 @@ Singleton {
 
     enum Character {
         Mavuika,
-        Ororon,
         Skirk,
         Chasca
     }
 
     property int character: OsdConfig.Character.Mavuika
-    readonly property var characterNames: ["Mavuika", "Ororon", "Skirk", "Chasca"]
+    readonly property var characterNames: ["Mavuika", "Skirk", "Chasca"]
     readonly property string currentCharacterName: root.characterNames[root.character] || "Mavuika"
     readonly property string configPath: PathService.state + "/osd.json"
     property bool loaded: false

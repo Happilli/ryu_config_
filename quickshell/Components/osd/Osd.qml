@@ -150,8 +150,6 @@ Item {
                 return chascaComponent;
             case OsdConfig.Character.Skirk:
                 return skirkComponent;
-            case OsdConfig.Character.Ororon:
-                return ororonComponent;
             case OsdConfig.Character.Mavuika:
                 return mavuikaComponent;
             default:
@@ -179,10 +177,6 @@ Item {
         Skirk {}
     }
 
-    Component {
-        id: ororonComponent
-        Ororon {}
-    }
     Component {
         id: mavuikaComponent
         Mavuika {}
