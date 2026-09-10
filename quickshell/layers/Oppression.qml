@@ -4,7 +4,6 @@ import Quickshell
 import Quickshell.Wayland
 import qs.utils
 import qs.Components.Wow
-import qs.Components.Poketwo
 import qs.Components.Artiqa
 import qs.Components.Dancer
 import qs.Components.Omnitrix
@@ -23,7 +22,7 @@ Scope {
             property bool isPrimary: screenScope.modelData === Quickshell.screens[0]
             property int activeNotifs: 0
             Loader {
-                active: ToggleConfigs.wow.isActive || screenScope.activeNotifs > 0 || ScreenshotConfig.isActive || NotificationService.count > 0 || ToggleConfigs.chernobyl.isActive || ToggleConfigs.artiqa.isActive || ToggleConfigs.poketwo.isActive || ToggleConfigs.dancer.isActive || ToggleConfigs.omnitrix.isActive
+                active: ToggleConfigs.wow.isActive || screenScope.activeNotifs > 0 || ScreenshotConfig.isActive || NotificationService.count > 0 || ToggleConfigs.chernobyl.isActive || ToggleConfigs.artiqa.isActive || ToggleConfigs.dancer.isActive || ToggleConfigs.omnitrix.isActive
 
                 sourceComponent: Component {
                     WlrLayershell {
@@ -97,14 +96,6 @@ Scope {
                             active: ToggleConfigs.chernobyl.isActive
                             sourceComponent: Component {
                                 Chernobyl {}
-                            }
-                        }
-
-                        Loader {
-                            anchors.fill: parent
-                            active: ToggleConfigs.poketwo.isActive
-                            sourceComponent: Component {
-                                Poketwo {}
                             }
                         }
                         Loader {

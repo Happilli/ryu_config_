@@ -13,7 +13,7 @@ return {
     end,
   },
   {
-    dir = "~/Development/neo_plug/crescenting",
+    dir = "~/development/neo_plug/crescenting",
     name = "crescenting",
     lazy = false,
     config = function()

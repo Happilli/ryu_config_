@@ -9,7 +9,6 @@ Item {
     readonly property var configs: ({
             "dancer": ToggleConfigs.dancer,
             "omnitrix": ToggleConfigs.omnitrix,
-            "poketwo": ToggleConfigs.poketwo,
             "paimonclock": PaimonClockConfig
         })
     function toggle(service) {
@@ -27,14 +26,13 @@ Item {
     readonly property int innerRadius: 4
     readonly property int groupSpacing: 4
 
-    readonly property var activeStates: [ToggleConfigs.dancer.isActive, ToggleConfigs.omnitrix.isActive, ToggleConfigs.poketwo.isActive, PaimonClockConfig.isActive]
+    readonly property var activeStates: [ToggleConfigs.dancer.isActive, ToggleConfigs.omnitrix.isActive, PaimonClockConfig.isActive]
 
     property real w0: btnNormal
     property real w1: btnNormal
     property real w2: btnNormal
-    property real w3: btnNormal
 
-    readonly property real totalWidth: w0 + w1 + w2 + w3 + groupSpacing * 3
+    readonly property real totalWidth: w0 + w1 + w2 + groupSpacing * 2
 
     Item {
         anchors.centerIn: parent
@@ -60,14 +58,6 @@ Item {
                     "service": "omnitrix"
                 },
                 {
-                    "icon": "\udb84\udf93",
-                    "active": ToggleConfigs.poketwo.isActive,
-                    "activeColor": Theme.tertiaryContainer,
-                    "activeBorder": Theme.tertiaryColor,
-                    "activeText": Theme.onTertiaryContainer,
-                    "service": "poketwo"
-                },
-                {
                     "icon": "\ue641",
                     "active": PaimonClockConfig.isActive,
                     "activeColor": Theme.primaryContainer,
@@ -85,7 +75,7 @@ Item {
 
                 readonly property bool isActive: modelData.active
                 readonly property bool leftActive: index > 0 && root.activeStates[index - 1]
-                readonly property bool rightActive: index < 3 && root.activeStates[index + 1]
+                readonly property bool rightActive: index < 2 && root.activeStates[index + 1]
                 readonly property bool isCompressed: !isActive && (leftActive || rightActive)
 
                 readonly property real targetWidth: isActive ? root.btnExpanded : isCompressed ? root.btnCompressed : root.btnNormal
@@ -108,8 +98,6 @@ Item {
                         root.w1 = animWidth;
                     else if (index === 2)
                         root.w2 = animWidth;
-                    else if (index === 3)
-                        root.w3 = animWidth;
                 }
 
                 readonly property real naturalX: {
@@ -117,13 +105,11 @@ Item {
                         return 0;
                     if (index === 1)
                         return root.w0 + root.groupSpacing;
-                    if (index === 2)
-                        return root.w0 + root.w1 + root.groupSpacing * 2;
-                    return root.w0 + root.w1 + root.w2 + root.groupSpacing * 3;
+                    return root.w0 + root.w1 + root.groupSpacing * 2;
                 }
 
                 readonly property real inactiveLeftR: index === 0 ? root.outerRadius : root.innerRadius
-                readonly property real inactiveRightR: index === 3 ? root.outerRadius : root.innerRadius
+                readonly property real inactiveRightR: index === 2 ? root.outerRadius : root.innerRadius
 
                 x: naturalX
                 y: 0

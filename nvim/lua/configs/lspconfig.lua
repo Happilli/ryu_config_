@@ -52,21 +52,6 @@ vim.lsp.config("clangd", {
     end
   end,
 })
--- ##python
-vim.lsp.config("pyright", {
-  cmd = { "pyright-langserver", "--stdio" },
-  filetypes = { "python" },
-  root_dir = vim.fs.root(0, { "pyrightconfig.json", "pyproject.toml", "setup.py", "requirements.txt", "venv", ".git" }),
-  settings = {
-    python = {
-      analysis = {
-        autoSearchPaths = true,
-        useLibraryCodeForTypes = true,
-        diagnosticMode = "workspace",
-      },
-    },
-  },
-})
 
 -- qml [for quickshelling]
 vim.lsp.config("qmlls", {
@@ -84,5 +69,4 @@ vim.lsp.enable "gopls"
 vim.lsp.enable "rust_analyzer"
 vim.lsp.enable "clangd"
 -- vim.lsp.enable "jdtls"
-vim.lsp.enable "pyright"
 vim.lsp.enable "qmlls"
