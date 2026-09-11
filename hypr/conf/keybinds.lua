@@ -41,7 +41,7 @@ local exec_binds = {
 	{ "ALT + Q", "qtcreator" },
 	{
 		"ALT + R",
-		"pkill -2 wl-screenrec || wl-screenrec -f ~/Videos/$(date +%Y-%m-%d_%H-%M-%S).mp4 --audio --audio-device 52",
+		"pkill -2 wl-screenrec || wl-screenrec -f ~/Videos/$(date +%Y-%m-%d_%H-%M-%S).mp4 --audio --audio-device 56",
 		{ locked = true },
 	},
 	{ "ALT + P", "hyprpicker -a" },
