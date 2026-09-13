@@ -1,6 +1,6 @@
 pragma ComponentBehavior: Bound
 import QtQuick
-import Sqliter
+import Ryu.Sqliter
 import qs.Services.Theme
 import qs.Components.common
 

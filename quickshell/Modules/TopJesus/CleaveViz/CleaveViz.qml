@@ -1,5 +1,5 @@
 pragma ComponentBehavior: Bound
-import Cleave
+import Ryu.Cleave
 import QtQuick
 import qs.Services.Theme
 import qs.Configuration.Cleave

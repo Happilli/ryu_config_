@@ -1,5 +1,5 @@
 pragma ComponentBehavior: Bound
-import Clipsh
+import Ryu.Clipsh
 import QtQuick
 import QtQuick.Controls
 import qs.Services.Theme

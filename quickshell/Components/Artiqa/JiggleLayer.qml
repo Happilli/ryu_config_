@@ -86,7 +86,7 @@ Item {
         property real time: root.jiggleTime
         property real intensity: 1.0
 
-        vertexShader: "qrc:/qt/qml/Drawness/jiggle/jiggle.vert.qsb"
-        fragmentShader: "qrc:/qt/qml/Drawness/jiggle/jiggle.frag.qsb"
+        vertexShader: "qrc:/qt/qml/Ryu/Drawness/jiggle/jiggle.vert.qsb"
+        fragmentShader: "qrc:/qt/qml/Ryu/Drawness/jiggle/jiggle.frag.qsb"
     }
 }

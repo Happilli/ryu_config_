@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
-import Warsa
+import Ryu.Warsa
 import QtQuick
-import Sqliter
+import Ryu.Sqliter
 import qs.Services.Theme
 import qs.Components.common
 import "." as LocalWarsa

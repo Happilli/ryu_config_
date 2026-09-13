@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import qs.Services.Theme
-import Drawness
+import Ryu.Drawness
 import "./tools/"
 import qs.Components.common
 
