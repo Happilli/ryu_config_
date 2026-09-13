@@ -28,6 +28,30 @@ Item {
 
     readonly property var activeStates: [ToggleConfigs.dancer.isActive, ToggleConfigs.omnitrix.isActive, PaimonClockConfig.isActive]
 
+    readonly property var buttonModel: [
+        {
+            "icon": "\udb85\uddcf",
+            "activeColor": Theme.primaryContainer,
+            "activeBorder": Theme.primaryColor,
+            "activeText": Theme.onPrimaryContainer,
+            "service": "dancer"
+        },
+        {
+            "icon": "\udb81\udeb1",
+            "activeColor": Theme.secondaryContainer,
+            "activeBorder": Theme.secondaryColor,
+            "activeText": Theme.onSecondaryContainer,
+            "service": "omnitrix"
+        },
+        {
+            "icon": "\ue641",
+            "activeColor": Theme.primaryContainer,
+            "activeBorder": Theme.primaryColor,
+            "activeText": Theme.onPrimaryContainer,
+            "service": "paimonclock"
+        }
+    ]
+
     property real w0: btnNormal
     property real w1: btnNormal
     property real w2: btnNormal
@@ -40,32 +64,7 @@ Item {
         height: root.btnHeight
 
         Repeater {
-            model: [
-                {
-                    "icon": "\udb85\uddcf",
-                    "active": ToggleConfigs.dancer.isActive,
-                    "activeColor": Theme.primaryContainer,
-                    "activeBorder": Theme.primaryColor,
-                    "activeText": Theme.onPrimaryContainer,
-                    "service": "dancer"
-                },
-                {
-                    "icon": "\udb81\udeb1",
-                    "active": ToggleConfigs.omnitrix.isActive,
-                    "activeColor": Theme.secondaryContainer,
-                    "activeBorder": Theme.secondaryColor,
-                    "activeText": Theme.onSecondaryContainer,
-                    "service": "omnitrix"
-                },
-                {
-                    "icon": "\ue641",
-                    "active": PaimonClockConfig.isActive,
-                    "activeColor": Theme.primaryContainer,
-                    "activeBorder": Theme.primaryColor,
-                    "activeText": Theme.onPrimaryContainer,
-                    "service": "paimonclock"
-                }
-            ]
+            model: root.buttonModel
 
             delegate: Item {
                 id: btn
@@ -73,12 +72,12 @@ Item {
                 required property var modelData
                 required property int index
 
-                readonly property bool isActive: modelData.active
-                readonly property bool leftActive: index > 0 && root.activeStates[index - 1]
-                readonly property bool rightActive: index < 2 && root.activeStates[index + 1]
-                readonly property bool isCompressed: !isActive && (leftActive || rightActive)
+                readonly property bool isActive: root.configs[btn.modelData.service].isActive
+                readonly property bool leftActive: btn.index > 0 && root.activeStates[btn.index - 1]
+                readonly property bool rightActive: btn.index < 2 && root.activeStates[btn.index + 1]
+                readonly property bool isCompressed: !btn.isActive && (btn.leftActive || btn.rightActive)
 
-                readonly property real targetWidth: isActive ? root.btnExpanded : isCompressed ? root.btnCompressed : root.btnNormal
+                readonly property real targetWidth: btn.isActive ? root.btnExpanded : btn.isCompressed ? root.btnCompressed : root.btnNormal
 
                 property real animWidth: root.btnNormal
                 onTargetWidthChanged: animWidth = targetWidth
@@ -92,28 +91,28 @@ Item {
                 }
 
                 onAnimWidthChanged: {
-                    if (index === 0)
-                        root.w0 = animWidth;
-                    else if (index === 1)
-                        root.w1 = animWidth;
-                    else if (index === 2)
-                        root.w2 = animWidth;
+                    if (btn.index === 0)
+                        root.w0 = btn.animWidth;
+                    else if (btn.index === 1)
+                        root.w1 = btn.animWidth;
+                    else if (btn.index === 2)
+                        root.w2 = btn.animWidth;
                 }
 
                 readonly property real naturalX: {
-                    if (index === 0)
+                    if (btn.index === 0)
                         return 0;
-                    if (index === 1)
+                    if (btn.index === 1)
                         return root.w0 + root.groupSpacing;
                     return root.w0 + root.w1 + root.groupSpacing * 2;
                 }
 
-                readonly property real inactiveLeftR: index === 0 ? root.outerRadius : root.innerRadius
-                readonly property real inactiveRightR: index === 2 ? root.outerRadius : root.innerRadius
+                readonly property real inactiveLeftR: btn.index === 0 ? root.outerRadius : root.innerRadius
+                readonly property real inactiveRightR: btn.index === 2 ? root.outerRadius : root.innerRadius
 
-                x: naturalX
+                x: btn.naturalX
                 y: 0
-                width: animWidth
+                width: btn.animWidth
                 height: root.btnHeight
 
                 PillSegment {

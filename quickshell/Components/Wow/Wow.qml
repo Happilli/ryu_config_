@@ -22,10 +22,29 @@ Item {
     clip: false
     anchors.fill: parent
 
+    property var wsMap: ({})
+
+    function rebuildWsMap() {
+        const map = {};
+        const values = Hyprland.workspaces.values;
+        for (let i = 0; i < values.length; i++) {
+            map[values[i].id] = values[i];
+        }
+        root.wsMap = map;
+    }
+
     Component.onCompleted: {
         Hyprland.refreshMonitors();
         Hyprland.refreshToplevels();
         Hyprland.refreshWorkspaces();
+        root.rebuildWsMap();
+    }
+
+    Connections {
+        target: Hyprland.workspaces
+        function onValuesChanged() {
+            root.rebuildWsMap();
+        }
     }
 
     readonly property int columns: 5
@@ -44,10 +63,7 @@ Item {
             readonly property int workspaceId: index + 1
             readonly property bool isActive: WowService.activeWorkspaceId === workspaceId
             property bool isDropTarget: false
-            readonly property HyprlandWorkspace wsp: Hyprland.workspaces.values.find(s => {
-                return s.id === workspaceId;
-            }) || null
-
+            readonly property HyprlandWorkspace wsp: root.wsMap[workspaceWrapper.workspaceId] ?? null
             readonly property var geo: WowService.workspaceGeometry(wsp, workspaceWrapper.workspaceId)
             readonly property var geoScale: WowService.scaleFactors(geo, root.workspaceWidth, root.workspaceHeight)
             readonly property var validToplevels: geo.valid

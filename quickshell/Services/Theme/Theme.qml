@@ -1,12 +1,11 @@
 pragma Singleton
 import QtQuick
-import Quickshell
 import Quickshell.Io
 import qs.Services.Kraken
 import qs.Services.Paths
 import qs.utils
 
-Singleton {
+QtObject {
     id: root
 
     readonly property string themePath: PathService.state + "/theme.json"
@@ -98,12 +97,11 @@ Singleton {
     property color textColor: root.onBackground
     property color dimColor: root.outlineColor
 
-    FileView {
-        id: jsonFile
+    property FileView jsonFile: FileView {
         path: root.colorsPath
         onLoaded: {
             try {
-                const data = JSON.parse(jsonFile.text());
+                const data = JSON.parse(root.jsonFile.text());
                 root._c = data?.colors ?? {};
             } catch (e) {
                 root._c = {};
@@ -114,24 +112,22 @@ Singleton {
         }
     }
 
-    Process {
-        id: matugenProcess
+    property Process matugenProcess: Process {
         onRunningChanged: {
-            if (!running) {
-                jsonFile.reload();
+            if (!root.matugenProcess.running) {
+                root.jsonFile.reload();
             }
         }
     }
 
-    Kraken {
-        id: themeKraken
+    property Kraken themeKraken: Kraken {
         filePath: root.themePath
 
         onDataLoaded: {
-            root.currentSchemeType = themeKraken.get("schemeType", "scheme-content");
-            const saved = themeKraken.get("thumbPath", "");
+            root.currentSchemeType = root.themeKraken.get("schemeType", "scheme-content");
+            const saved = root.themeKraken.get("thumbPath", "");
             root.thumbPath = saved ? PathService.home + '/thumbs/' + saved : "";
-            root.isDarkMode = themeKraken.get("isDarkMode", true);
+            root.isDarkMode = root.themeKraken.get("isDarkMode", true);
         }
 
         onLoadFailed: error => {
@@ -139,7 +135,6 @@ Singleton {
             root.saveTheme();
         }
     }
-
     onIsDarkModeChanged: {
         root.saveTheme();
         root.generateColors();
@@ -156,18 +151,18 @@ Singleton {
         const src = WallpaperConfig.currentWallpaper || root.defaultWallpaper;
         const mode = root.isDarkMode ? "dark" : "light";
         const cmd = `mkdir -p ~/.cache/safalQuick && matugen --source-color-index 0 -m "${mode}" -t "${root.currentSchemeType}" image "${src}" && echo "matugen done" || echo "matugen failed"`;
-        matugenProcess.command = ["/bin/sh", "-c", cmd];
-        matugenProcess.running = true;
+        root.matugenProcess.command = ["/bin/sh", "-c", cmd];
+        root.matugenProcess.running = true;
     }
 
     function saveTheme() {
-        themeKraken.set("isDarkMode", root.isDarkMode);
-        themeKraken.set("schemeType", root.currentSchemeType);
+        root.themeKraken.set("isDarkMode", root.isDarkMode);
+        root.themeKraken.set("schemeType", root.currentSchemeType);
         if (root.thumbPath) {
             const filename = root.thumbPath.split("/").pop();
-            themeKraken.set("thumbPath", filename);
+            root.themeKraken.set("thumbPath", filename);
         }
-        themeKraken.save();
+        root.themeKraken.save();
     }
 
     function toggleMode() {
