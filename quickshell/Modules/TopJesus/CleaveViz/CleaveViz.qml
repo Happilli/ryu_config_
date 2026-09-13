@@ -21,6 +21,7 @@ Item {
         smoothing: 0.3
         peakDecay: 0.006
         silenceThreshold: 0.0001
+        source: "alsa_output.pci-0000_00_1f.3.analog-stereo.monitor"
         debugMode: false
         onError: msg => {
             return console.warn("[CleaveViz]", msg);
