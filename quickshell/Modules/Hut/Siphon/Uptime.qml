@@ -5,6 +5,7 @@ import qs.Services.Shapes
 import qs.Services.Paths
 import qs.Services.Uptime
 import qs.Components.common
+import Ryu.Shapes
 
 Item {
     id: root
@@ -25,7 +26,7 @@ Item {
 
             ShapeCanvas {
                 anchors.fill: parent
-                roundedPolygon: GetMShapes.get(18)
+                shape: MaterialShape.Ghostish
                 color: "transparent"
                 imageSource: "file://" + PathService.home + "/.cache/safalQuick/pfp.jpeg"
                 borderWidth: 2

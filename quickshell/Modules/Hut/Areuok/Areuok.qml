@@ -112,7 +112,7 @@ Item {
 
                     ShapeCanvas {
                         anchors.fill: parent
-                        roundedPolygon: GetMShapes.get(chip.modelData.shapeIdx)
+                        shape: chip.modelData.shapeIdx
                         color: {
                             if (chip.hovered) {
                                 return chip.running ? Theme.primaryContainer : Theme.errorContainer;

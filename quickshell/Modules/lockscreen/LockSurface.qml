@@ -6,6 +6,7 @@ import qs.Services.Theme
 import qs.Services.Paths
 import qs.Services.Shapes
 import qs.utils
+import Ryu.Shapes
 
 Rectangle {
     id: root
@@ -204,8 +205,7 @@ Rectangle {
                     ShapeCanvas {
                         id: pfpShape
                         anchors.fill: parent
-                        roundedPolygon: root.context.showFailure ? GetMShapes.get(25) : GetMShapes.get(18)
-                        instantMorph: root.context.showFailure
+                        shape: root.context.showFailure ? MaterialShape.SoftBurst : MaterialShape.Cookie7Sided
                         color: "transparent"
                         imageSource: "file://" + PathService.home + "/.cache/safalQuick/pfp.jpeg"
                         borderWidth: 2
@@ -213,18 +213,9 @@ Rectangle {
 
                         Behavior on borderColor {
                             ColorAnimation {
-                                duration: root.context.showFailure ? 0 : 200
+                                duration: 200
                             }
                         }
-                    }
-
-                    Text {
-                        anchors.centerIn: parent
-                        text: "?"
-                        font.pointSize: 64
-                        font.weight: Font.Light
-                        color: Theme.onPrimaryContainer
-                        visible: !pfpShape.imageReady
                     }
 
                     MouseArea {

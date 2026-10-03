@@ -4,6 +4,7 @@ import QtQuick
 import Quickshell.Services.Mpris
 import qs.Services.Theme
 import qs.Services.Shapes
+import Ryu.Shapes
 
 Item {
     id: root
@@ -120,13 +121,13 @@ Item {
 
         Item {
             id: thumbnailItem
-            width: 34
-            height: 34
+            width: 40
+            height: 40
             anchors.verticalCenter: parent.verticalCenter
 
             ShapeCanvas {
                 anchors.fill: parent
-                roundedPolygon: GetMShapes.get(19)
+                shape: MaterialShape.Cookie12Sided
                 color: "transparent"
                 imageSource: root.player ? (root.player.trackArtUrl || "") : ""
                 borderWidth: 2
