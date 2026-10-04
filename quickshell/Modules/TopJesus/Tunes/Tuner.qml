@@ -112,7 +112,7 @@ Item {
                         id: trackArtist
                         text: root.player ? (root.player.trackArtist || "") : ""
                         font.pixelSize: 10
-                        color: Theme.onSurfaceVariant
+                        color: Theme.onSurface
                         width: parent.width
                         horizontalAlignment: Text.AlignRight
                         elide: Text.ElideRight
@@ -148,7 +148,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: root.formatTime(root.player ? root.player.position : 0) + " / " + root.formatTime(root.player ? root.player.length : 0)
                 font.pixelSize: 9
-                color: Theme.onSurfaceVariant
+                color: Theme.onSurface
             }
 
             Item {

@@ -86,7 +86,7 @@ Item {
                 text: "uptime"
                 font.pixelSize: 11
                 font.weight: Font.Medium
-                color: Theme.onSurfaceVariant
+                color: Theme.onSurface
                 opacity: 0.7
             }
 

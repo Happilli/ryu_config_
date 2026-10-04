@@ -125,7 +125,7 @@ Item {
                             if (chip.hovered) {
                                 return chip.running ? Theme.onPrimaryContainer : Theme.onErrorContainer;
                             }
-                            return chip.running ? Theme.surfaceContainer : Theme.onSurfaceVariant;
+                            return chip.running ? Theme.surfaceContainer : Theme.onSurface;
                         }
                         Behavior on color {
                             ColorAnimation {

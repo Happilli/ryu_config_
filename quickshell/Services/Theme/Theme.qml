@@ -42,9 +42,19 @@ QtObject {
     }
 
     property var _c: ({})
+    property var _palette: ({})
+    property var _base16: ({})
 
     function _get(key) {
         return root._c[key] ?? "";
+    }
+
+    function palette(key) {
+        return root._palette[key] ?? "";
+    }
+
+    function base16(key) {
+        return root._base16[key] ?? "";
     }
 
     property color backgroundColor: root._get("background")
@@ -52,9 +62,12 @@ QtObject {
     property color surfaceBright: root._get("surface_bright")
     property color surfaceContainer: root._get("surface_container")
     property color surfaceContainerLow: root._get("surface_container_low")
+    property color surfaceContainerLowest: root._get("surface_container_lowest")
     property color surfaceContainerHigh: root._get("surface_container_high")
     property color surfaceContainerHighest: root._get("surface_container_highest")
     property color surfaceDim: root._get("surface_dim")
+    property color surfaceVariant: root._get("surface_variant")
+    property color surfaceTint: root._get("surface_tint")
     property color primaryColor: root._get("primary")
     property color primaryContainer: root._get("primary_container")
     property color primaryFixed: root._get("primary_fixed")
@@ -102,9 +115,14 @@ QtObject {
         onLoaded: {
             try {
                 const data = JSON.parse(root.jsonFile.text());
-                root._c = data?.colors ?? {};
+                root._c = data?.md3 ?? data?.colors ?? {};
+                root._palette = data?.palette ?? {};
+                root._base16 = data?.base16 ?? {};
             } catch (e) {
+                console.warn("colors.json parse failed:", e);
                 root._c = {};
+                root._palette = {};
+                root._base16 = {};
             }
         }
         onLoadFailed: {

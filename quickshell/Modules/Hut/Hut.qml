@@ -3,6 +3,7 @@ import QtQuick
 import QtQuick.Shapes
 import Quickshell.Widgets
 import qs.Services.Theme
+import qs.Components.common
 import "./Areuok/"
 import "./Siphon/"
 import "./Warsa/"
@@ -174,49 +175,11 @@ Item {
                         }
                     }
 
-                    Rectangle {
-                        width: 28
-                        height: 28
-                        radius: 6
+                    Pin {
                         anchors.bottom: parent.bottom
                         anchors.right: parent.right
-
-                        color: pinArea.containsMouse ? Theme.surfaceBright : "transparent"
-
-                        Text {
-                            anchors.centerIn: parent
-                            text: "\uf08d"
-                            font.pixelSize: 16
-                            color: root.isPinned ? Theme.primaryColor : Theme.onSurfaceVariant
-                            rotation: root.isPinned ? 0 : 45
-
-                            Behavior on color {
-                                ColorAnimation {
-                                    duration: 200
-                                }
-                            }
-
-                            Behavior on rotation {
-                                NumberAnimation {
-                                    duration: 200
-                                    easing.type: Easing.OutCubic
-                                }
-                            }
-                        }
-
-                        MouseArea {
-                            id: pinArea
-                            anchors.fill: parent
-                            hoverEnabled: true
-                            cursorShape: Qt.PointingHandCursor
-                            onClicked: root.isPinned = !root.isPinned
-                        }
-
-                        Behavior on color {
-                            ColorAnimation {
-                                duration: 150
-                            }
-                        }
+                        pinned: root.isPinned
+                        onClicked: root.isPinned = !root.isPinned
                     }
                 }
             }

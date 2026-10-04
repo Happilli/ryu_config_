@@ -42,7 +42,7 @@ Item {
         visible: charModel.count === 0
         text: "No entries for " + root.currentTab
         font.pixelSize: 13
-        color: Theme.onSurfaceVariant
+        color: Theme.onSurface
     }
 
     GridView {
@@ -99,7 +99,7 @@ Item {
                     Text {
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: gridItem.meaning
-                        color: Theme.onSurfaceVariant
+                        color: Theme.onSurface
                         font.pixelSize: 10
                     }
                 }

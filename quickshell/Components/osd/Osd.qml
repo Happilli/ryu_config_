@@ -105,7 +105,7 @@ Item {
             text: root.displayKanji
             font.pixelSize: 36
             font.weight: Font.Bold
-            color: OsdConfig.isMuted ? Theme.onSurfaceVariant : Theme.primaryColor
+            color: OsdConfig.isMuted ? Theme.onSurface : Theme.primaryColor
             antialiasing: true
             renderType: Text.NativeRendering
 
@@ -121,7 +121,7 @@ Item {
             text: OsdConfig.currentValue + "%"
             font.pixelSize: 14
             font.weight: Font.Bold
-            color: OsdConfig.isMuted ? Theme.onSurfaceVariant : Theme.primaryColor
+            color: OsdConfig.isMuted ? Theme.onSurface : Theme.primaryColor
             renderType: Text.NativeRendering
 
             property real radius: (ringContainer.width - 4) / 2

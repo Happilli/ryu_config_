@@ -84,7 +84,7 @@ Rectangle {
                         text: tabItem.modelData
                         font.pixelSize: 14
                         font.weight: tabItem.isActive ? Font.Medium : Font.Normal
-                        color: tabItem.isActive ? Theme.onPrimaryContainer : Theme.onSurfaceVariant
+                        color: tabItem.isActive ? Theme.onPrimaryContainer : Theme.onSurface
                         Behavior on color {
                             ColorAnimation {
                                 duration: 200

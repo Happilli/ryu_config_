@@ -22,12 +22,12 @@ Item {
     readonly property color itemHoverBg: Theme.primaryContainer
     readonly property color itemText: Theme.onSurface
     readonly property color itemHoverText: Theme.onPrimaryContainer
-    readonly property color iconColor: Theme.onSurfaceVariant
+    readonly property color iconColor: Theme.onSurface
     readonly property color wipeBg: Theme.surfaceContainer
     readonly property color wipeBgHover: Theme.errorContainer
-    readonly property color wipeIcon: Theme.onSurfaceVariant
+    readonly property color wipeIcon: Theme.onSurface
     readonly property color wipeIconHover: Theme.onErrorContainer
-    readonly property color emptyText: Theme.onSurfaceVariant
+    readonly property color emptyText: Theme.onSurface
 
     implicitWidth: root.panelSize
     implicitHeight: root._filteredCount === 0 ? root.panelMinHeight : Math.min(Math.max(62 + root._filteredCount * root.itemH, root.panelMinHeight), root.panelSize)

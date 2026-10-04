@@ -325,7 +325,7 @@ Item {
                 Text {
                     Layout.alignment: Qt.AlignVCenter
                     text: tile.displayApp
-                    color: Theme.onSurfaceVariant
+                    color: Theme.onSurface
 
                     font {
                         pixelSize: 11
@@ -341,7 +341,7 @@ Item {
                     Layout.alignment: Qt.AlignVCenter
                     visible: tile.overflows
                     text: "\uedfb"
-                    color: expandHover.hovered ? Theme.primaryColor : Theme.onSurfaceVariant
+                    color: expandHover.hovered ? Theme.primaryColor : Theme.onSurface
                     rotation: tile.expanded ? 90 : 0
 
                     font {
@@ -400,7 +400,7 @@ Item {
                     text: tile.displayBody
                     width: parent.width
                     font.pixelSize: 13
-                    color: Theme.onSurfaceVariant
+                    color: Theme.onSurface
                     wrapMode: Text.Wrap
                     lineHeight: 1.4
                     maximumLineCount: tile.expanded ? 9999 : NotificationConfig.collapsedLines

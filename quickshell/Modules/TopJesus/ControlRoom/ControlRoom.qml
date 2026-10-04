@@ -185,7 +185,7 @@ Item {
                         Text {
                             anchors.horizontalCenter: parent.horizontalCenter
                             text: card.modelData.label
-                            color: Theme.onSurfaceVariant
+                            color: Theme.onSurface
                             font.pixelSize: Math.max(9, ring.width * 0.11)
                             opacity: 0.65
                             renderType: Text.NativeRendering

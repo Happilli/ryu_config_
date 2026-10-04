@@ -171,7 +171,7 @@ Item {
             activeColor: Theme.primaryContainer
             inactiveColor: Theme.surfaceContainer
             activeIconColor: Theme.onPrimaryContainer
-            inactiveIconColor: Theme.onSurfaceVariant
+            inactiveIconColor: Theme.onSurface
             icon: "\ueeef"
             onClicked: CommunicationConfig.toggle()
         }
@@ -217,7 +217,7 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     text: "G"
                     font.pixelSize: 14
-                    color: Theme.onSurfaceVariant
+                    color: Theme.onSurface
                 }
 
                 ThinSlider {
@@ -241,7 +241,7 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     text: "T"
                     font.pixelSize: 14
-                    color: Theme.onSurfaceVariant
+                    color: Theme.onSurface
                 }
 
                 ThinSlider {

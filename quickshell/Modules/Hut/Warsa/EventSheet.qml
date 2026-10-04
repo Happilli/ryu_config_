@@ -164,7 +164,7 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     text: root.monthName + " " + root.targetDay
                     font.pixelSize: 11
-                    color: Theme.onSurfaceVariant
+                    color: Theme.onSurface
                 }
             }
 
@@ -196,7 +196,7 @@ Item {
                     Text {
                         visible: !titleInput.text && !titleInput.activeFocus
                         text: "Title"
-                        color: Theme.onSurfaceVariant
+                        color: Theme.onSurface
                         font.pixelSize: 13
                         anchors.verticalCenter: parent.verticalCenter
                     }
@@ -234,7 +234,7 @@ Item {
                     Text {
                         visible: !descInput.text && !descInput.activeFocus
                         text: "Description"
-                        color: Theme.onSurfaceVariant
+                        color: Theme.onSurface
                         font.pixelSize: 13
                         anchors.verticalCenter: parent.verticalCenter
                     }

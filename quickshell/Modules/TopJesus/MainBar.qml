@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 import "./Tunes/"
 import QtQuick
+import qs.Components.common
 import qs.Components.topjesus
 import qs.Services.Shapes
 import qs.Services.Theme
@@ -89,48 +90,10 @@ Item {
                     }
                 }
 
-                Rectangle {
-                    width: 28
-                    height: 28
-                    radius: 6
-                    color: pinArea.containsMouse ? Theme.surfaceBright : "transparent"
+                Pin {
                     anchors.verticalCenter: parent.verticalCenter
-
-                    Text {
-                        anchors.centerIn: parent
-                        text: "\uf08d"
-                        font.pixelSize: 16
-                        color: barRoot.isPinned ? Theme.primaryColor : Theme.onSurfaceVariant
-                        rotation: barRoot.isPinned ? 0 : 45
-
-                        Behavior on color {
-                            ColorAnimation {
-                                duration: 200
-                            }
-                        }
-
-                        Behavior on rotation {
-                            NumberAnimation {
-                                duration: 200
-                                easing.type: Easing.OutCubic
-                            }
-                        }
-                    }
-
-                    MouseArea {
-                        id: pinArea
-
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: barRoot.pinToggled()
-                    }
-
-                    Behavior on color {
-                        ColorAnimation {
-                            duration: 150
-                        }
-                    }
+                    pinned: barRoot.isPinned
+                    onClicked: barRoot.pinToggled()
                 }
 
                 Loader {
@@ -188,7 +151,7 @@ Item {
                                         anchors.centerIn: parent
                                         text: iconRect.modelData.icon
                                         font.pixelSize: 20
-                                        color: barRoot.activePopout === iconRect.modelData.id ? Theme.primaryColor : iMouse.containsMouse ? Theme.onPrimaryContainer : Theme.onSurfaceVariant
+                                        color: barRoot.activePopout === iconRect.modelData.id ? Theme.primaryColor : iMouse.containsMouse ? Theme.primaryFixedDim : Theme.onSurface
                                         rotation: iconRect.isGear && iMouse.containsMouse ? 90 : 0
 
                                         Behavior on color {

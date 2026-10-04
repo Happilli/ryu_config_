@@ -52,7 +52,7 @@ Item {
                     font.pixelSize: 11
                     font.weight: Font.Medium
                     font.letterSpacing: 1.1
-                    color: Theme.onSurfaceVariant
+                    color: Theme.onSurface
                 }
 
                 Text {
@@ -78,7 +78,7 @@ Item {
                     anchors.centerIn: parent
                     text: root.war.date || Qt.formatDate(new Date(), "MMM d, yyyy")
                     font.pixelSize: 11
-                    color: Theme.onSurfaceVariant
+                    color: Theme.onSurface
                 }
             }
         }
@@ -120,7 +120,7 @@ Item {
                 Text {
                     text: root.war.challenge?.description || ""
                     font.pixelSize: 12
-                    color: Theme.onSurfaceVariant
+                    color: Theme.onSurface
                     width: parent.width
                     wrapMode: Text.WordWrap
                     lineHeight: 1.5

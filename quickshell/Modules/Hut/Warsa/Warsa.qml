@@ -116,7 +116,7 @@ Item {
                             text: dayHeaderItem.modelData
                             font.pixelSize: 12
                             font.weight: Font.Medium
-                            color: Theme.onSurfaceVariant
+                            color: Theme.onSurface
                         }
                     }
                 }
