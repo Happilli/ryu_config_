@@ -4,3 +4,4 @@
 ![](previews/overview.png)
 ![](previews/lockscreen.png)
 many more...
+also it also requires on [ryu](https://aur.archlinux.org/packages/ryu)..
