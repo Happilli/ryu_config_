@@ -113,11 +113,19 @@ Item {
                     ShapeCanvas {
                         anchors.fill: parent
                         shape: chip.modelData.shapeIdx
+                        glyph: chip.modelData.icon
+                        glyphSize: 24
                         color: {
                             if (chip.hovered) {
                                 return chip.running ? Theme.primaryContainer : Theme.errorContainer;
                             }
                             return chip.running ? Theme.primaryColor : Theme.surfaceContainerHigh;
+                        }
+                        glyphColor: {
+                            if (chip.hovered) {
+                                return chip.running ? Theme.onPrimaryContainer : Theme.onErrorContainer;
+                            }
+                            return chip.running ? Theme.surfaceContainer : Theme.onSurfaceVariant;
                         }
                         Behavior on color {
                             ColorAnimation {
@@ -125,19 +133,7 @@ Item {
                                 easing.type: Easing.InOutCubic
                             }
                         }
-                    }
-
-                    Text {
-                        anchors.centerIn: parent
-                        text: chip.modelData.icon
-                        font.pixelSize: 24
-                        color: {
-                            if (chip.hovered) {
-                                return chip.running ? Theme.onPrimaryContainer : Theme.onErrorContainer;
-                            }
-                            return chip.running ? Theme.surfaceContainer : Theme.onSurfaceVariant;
-                        }
-                        Behavior on color {
+                        Behavior on glyphColor {
                             ColorAnimation {
                                 duration: 300
                                 easing.type: Easing.InOutCubic
