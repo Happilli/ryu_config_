@@ -59,6 +59,7 @@ Item {
 
         property var smoothed: []
         property real lerpFactor: 0.18
+        property real ref: 0.01
 
         function allSettled() {
             for (var i = 0; i < smoothed.length; i++)
@@ -80,6 +81,7 @@ Item {
             for (var t = 0; t < n; t++)
                 smoothed[t] = smoothed[t] + (data[t] - smoothed[t]) * lerpFactor;
             if (allSettled()) {
+                ref = 0.01;
                 decayTimer.stop();
                 ctx.clearRect(0, 0, w, h);
                 return;
@@ -89,7 +91,8 @@ Item {
                 if (smoothed[k] > peak) {
                     peak = smoothed[k];
                 }
-            var amp = (peak > 0.001) ? (h * 0.92 / peak) : 1;
+            ref = Math.max(peak, ref * 0.995, 0.01);
+            var amp = h * 0.92 / ref;
             var step = w / (n - 1);
             var pts = [];
             for (var i = 0; i < n; i++)
@@ -117,6 +120,7 @@ Item {
         }
 
         anchors.fill: parent
+        renderTarget: Canvas.FramebufferObject
         onPaint: {
             var ctx = getContext("2d");
             ctx.clearRect(0, 0, width, height);
@@ -125,10 +129,11 @@ Item {
                 return;
 
             var n = rawData.length;
+            var half = n / 2;
             var processedData = new Array(n);
             for (var i = 0; i < n; i++) {
-                var index = (i < n / 2) ? (n / 2 - i) : (i - n / 2);
-                processedData[i] = rawData[Math.floor(index)] || 0;
+                var d = Math.abs(i - half) / half;
+                processedData[i] = rawData[Math.min(n - 1, Math.floor(d * (n - 1)))] || 0;
             }
             processedData[0] = 0;
             processedData[n - 1] = 0;

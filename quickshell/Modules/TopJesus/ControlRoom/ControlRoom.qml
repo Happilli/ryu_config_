@@ -1,8 +1,8 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Shapes
 import Quickshell.Io
+import Ryu.Extraa
 import qs.Services.Theme
 
 Item {
@@ -111,17 +111,14 @@ Item {
             model: [
                 {
                     "label": "RAM",
-                    "icon": "\udb80\udf5b",
                     "idx": 0
                 },
                 {
                     "label": "CPU",
-                    "icon": "\udb83\udee0",
                     "idx": 1
                 },
                 {
                     "label": "TEMP",
-                    "icon": "\udb82\udd8c",
                     "idx": 2
                 }
             ]
@@ -154,73 +151,22 @@ Item {
                 Item {
                     id: ring
 
-                    readonly property real arcR: (width - 8) / 2
-                    readonly property real cx: width / 2
-                    readonly property real cy: height / 2
-                    readonly property real gapAngle: 50
-                    readonly property real iconAngleDeg: 60
-                    readonly property real trackStart: iconAngleDeg + gapAngle / 2
-                    readonly property real trackSweep: 360 - gapAngle
-
                     anchors.centerIn: parent
-                    width: Math.min(parent.width, parent.height) * 0.8
+                    width: Math.min(parent.width, parent.height) * 0.9
                     height: width
 
-                    Shape {
+                    WavyProgress {
                         anchors.fill: parent
-                        layer.enabled: true
-                        layer.smooth: true
-                        layer.samples: 8
-                        antialiasing: true
-
-                        ShapePath {
-                            strokeWidth: 3
-                            strokeColor: Qt.rgba(card.accent.r, card.accent.g, card.accent.b, 0.18)
-                            fillColor: "transparent"
-                            capStyle: ShapePath.RoundCap
-
-                            PathAngleArc {
-                                centerX: ring.cx
-                                centerY: ring.cy
-                                radiusX: ring.arcR
-                                radiusY: ring.arcR
-                                startAngle: ring.trackStart
-                                sweepAngle: ring.trackSweep
-                            }
-                        }
-
-                        ShapePath {
-                            strokeWidth: 3
-                            strokeColor: card.accent
-                            fillColor: "transparent"
-                            capStyle: ShapePath.RoundCap
-
-                            PathAngleArc {
-                                centerX: ring.cx
-                                centerY: ring.cy
-                                radiusX: ring.arcR
-                                radiusY: ring.arcR
-                                startAngle: ring.trackStart
-                                sweepAngle: ring.trackSweep * card.animatedVal
-                            }
-                        }
-                    }
-
-                    Text {
-                        id: iconText
-                        text: card.modelData.icon
-                        font.pixelSize: Math.max(16, ring.width * 0.26)
+                        style: WavyProgress.Circular
+                        indeterminate: false
+                        progress: card.animatedVal
                         color: card.accent
-
-                        readonly property real iconAngleRad: ring.iconAngleDeg * Math.PI / 180
-                        x: ring.cx + ring.arcR * Math.cos(iconAngleRad) - width / 2
-                        y: ring.cy + ring.arcR * Math.sin(iconAngleRad) - height / 2
-
-                        Behavior on color {
-                            ColorAnimation {
-                                duration: 300
-                            }
-                        }
+                        trackColor: Qt.rgba(card.accent.r, card.accent.g, card.accent.b, 0.18)
+                        amplitude: 0
+                        wavelength: 20
+                        waveSpeed: 0.6
+                        strokeWidth: 3
+                        gap: 10
                     }
 
                     Column {
@@ -231,7 +177,7 @@ Item {
                             anchors.horizontalCenter: parent.horizontalCenter
                             text: card.valueText
                             color: Theme.onSurface
-                            font.pixelSize: Math.max(12, ring.width * 0.17)
+                            font.pixelSize: Math.max(12, ring.width * 0.2)
                             font.bold: true
                             renderType: Text.NativeRendering
                         }
@@ -240,7 +186,7 @@ Item {
                             anchors.horizontalCenter: parent.horizontalCenter
                             text: card.modelData.label
                             color: Theme.onSurfaceVariant
-                            font.pixelSize: Math.max(9, ring.width * 0.1)
+                            font.pixelSize: Math.max(9, ring.width * 0.11)
                             opacity: 0.65
                             renderType: Text.NativeRendering
                         }

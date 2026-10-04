@@ -42,32 +42,40 @@ Singleton {
         }
     }
 
-    function increaseTemperature() {
-        temperature = Math.min(tempMax, temperature + tempStep);
+    function setTemperature(value) {
+        const next = Math.max(tempMin, Math.min(tempMax, Math.round(value)));
+        if (next === temperature)
+            return;
+        temperature = next;
         saveConfig();
         if (hyprsunsetActive)
             Quickshell.execDetached(["hyprctl", "hyprsunset", "temperature", temperature.toString()]);
+    }
+
+    function setGamma(value) {
+        const next = Math.max(gammaMin, Math.min(gammaMax, Math.round(value)));
+        if (next === gamma)
+            return;
+        gamma = next;
+        saveConfig();
+        if (hyprsunsetActive)
+            Quickshell.execDetached(["hyprctl", "hyprsunset", "gamma", gamma.toString()]);
+    }
+
+    function increaseTemperature() {
+        setTemperature(temperature + tempStep);
     }
 
     function decreaseTemperature() {
-        temperature = Math.max(tempMin, temperature - tempStep);
-        saveConfig();
-        if (hyprsunsetActive)
-            Quickshell.execDetached(["hyprctl", "hyprsunset", "temperature", temperature.toString()]);
+        setTemperature(temperature - tempStep);
     }
 
     function increaseGamma() {
-        gamma = Math.min(gammaMax, gamma + gammaStep);
-        saveConfig();
-        if (hyprsunsetActive)
-            Quickshell.execDetached(["hyprctl", "hyprsunset", "gamma", gamma.toString()]);
+        setGamma(gamma + gammaStep);
     }
 
     function decreaseGamma() {
-        gamma = Math.max(gammaMin, gamma - gammaStep);
-        saveConfig();
-        if (hyprsunsetActive)
-            Quickshell.execDetached(["hyprctl", "hyprsunset", "gamma", gamma.toString()]);
+        setGamma(gamma - gammaStep);
     }
 
     Timer {

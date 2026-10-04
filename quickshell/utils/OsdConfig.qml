@@ -66,6 +66,14 @@ Singleton {
         sink.audio.muted = false;
     }
 
+    function setVolume(percent: real) {
+        const sink = root.sink;
+        if (!sink?.audio)
+            return;
+        sink.audio.volume = Math.max(0.0, Math.min(1.0, percent / 100.0));
+        sink.audio.muted = false;
+    }
+
     function toggleMute() {
         const sink = root.sink;
         if (!sink?.audio)

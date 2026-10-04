@@ -5,6 +5,7 @@ import Quickshell.Services.Mpris
 import qs.Services.Theme
 import qs.Services.Shapes
 import Ryu.Shapes
+import Ryu.Extraa
 
 Item {
     id: root
@@ -12,11 +13,12 @@ Item {
     signal playingChanged(bool playing)
 
     readonly property bool isPlaying: root.player !== null && root.player.playbackState === MprisPlaybackState.Playing
+    readonly property bool hasSession: root.player !== null && (root.player.playbackState === MprisPlaybackState.Playing || root.player.playbackState === MprisPlaybackState.Paused)
 
-    implicitWidth: root.isPlaying ? 450 : 0
+    implicitWidth: root.hasSession ? 450 : 0
     implicitHeight: 40
     width: implicitWidth
-    height: root.isPlaying ? 40 : 0
+    height: root.hasSession ? 40 : 0
     visible: width > 0
     clip: true
 
@@ -69,7 +71,7 @@ Item {
         anchors.leftMargin: 8
         anchors.rightMargin: 8
         spacing: 12
-        visible: root.isPlaying
+        visible: root.hasSession
 
         Item {
             id: trackLabelArea
@@ -186,8 +188,6 @@ Item {
                 property real frac: isDragging ? tempFrac : (maxVal > 0 ? Math.max(0, Math.min(1, (extrapolatedPosition - minVal) / (maxVal - minVal))) : 0)
                 property color activeColor: Theme.primaryColor
                 property color inactiveColor: Theme.surfaceContainerHighest
-                property real waveAnimationPhase: 0
-                property int waveAmplitude: 2
 
                 signal scrub(int delta)
                 onScrub: delta => {
@@ -197,86 +197,25 @@ Item {
                     }
                 }
 
-                NumberAnimation on waveAnimationPhase {
-                    running: root.isPlaying
-                    from: 0
-                    to: Math.PI * 2
-                    duration: 1500
-                    loops: Animation.Infinite
-                }
-
-                Canvas {
-                    id: wavyCanvas
+                WavyProgress {
                     anchors.fill: parent
-                    antialiasing: true
-                    onPaint: {
-                        var ctx = getContext("2d");
-                        ctx.clearRect(0, 0, width, height);
-                        var centerPos = width * progressBarArea.frac;
-                        var padding = 4;
-                        var waveEndX = Math.max(padding, centerPos - 6);
-                        if (waveEndX > padding) {
-                            ctx.strokeStyle = progressBarArea.activeColor;
-                            ctx.lineWidth = 3;
-                            ctx.lineCap = "round";
-                            ctx.lineJoin = "round";
-                            ctx.beginPath();
-                            var period = 30;
-                            for (var x = padding; x <= waveEndX; x++) {
-                                var yOffset = Math.sin((x / period) * Math.PI * 2 + progressBarArea.waveAnimationPhase) * progressBarArea.waveAmplitude;
-                                if (x === padding)
-                                    ctx.moveTo(x, height / 2 + yOffset);
-                                else
-                                    ctx.lineTo(x, height / 2 + yOffset);
-                            }
-                            ctx.stroke();
-                        }
-                    }
-                    Connections {
-                        target: progressBarArea
-                        function onFracChanged() {
-                            wavyCanvas.requestPaint();
-                        }
-                        function onWaveAnimationPhaseChanged() {
-                            wavyCanvas.requestPaint();
-                        }
-                    }
-                }
-
-                Canvas {
-                    id: inactiveCanvas
-                    anchors.fill: parent
-                    antialiasing: true
-                    onPaint: {
-                        var ctx = getContext("2d");
-                        ctx.clearRect(0, 0, width, height);
-                        var centerPos = width * progressBarArea.frac;
-                        var inactiveStartX = centerPos + 6;
-                        if (inactiveStartX < width) {
-                            ctx.strokeStyle = progressBarArea.inactiveColor;
-                            ctx.lineWidth = 3;
-                            ctx.lineCap = "round";
-                            ctx.beginPath();
-                            ctx.moveTo(inactiveStartX, height / 2);
-                            ctx.lineTo(width, height / 2);
-                            ctx.stroke();
-                        }
-                    }
-                    Connections {
-                        target: progressBarArea
-                        function onFracChanged() {
-                            inactiveCanvas.requestPaint();
-                        }
-                    }
-                }
-
-                Rectangle {
-                    width: 3
-                    height: 12
-                    radius: 2
+                    style: WavyProgress.Linear
+                    indeterminate: false
+                    progress: progressBarArea.frac
                     color: progressBarArea.activeColor
-                    anchors.verticalCenter: parent.verticalCenter
-                    x: Math.min(Math.max(0, (parent.width * progressBarArea.frac) - (width / 2)), parent.width - width)
+                    trackColor: progressBarArea.inactiveColor
+                    strokeWidth: 3
+                    gap: 3
+                    wavelength: 30
+                    waveSpeed: 0.67
+                    amplitude: root.isPlaying ? 2 : 0
+
+                    Behavior on amplitude {
+                        NumberAnimation {
+                            duration: 400
+                            easing.type: Easing.OutCubic
+                        }
+                    }
                 }
 
                 MouseArea {
