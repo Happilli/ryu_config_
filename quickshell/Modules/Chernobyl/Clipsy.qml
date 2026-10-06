@@ -1,8 +1,8 @@
 pragma ComponentBehavior: Bound
-import Ryu.Clipsh
 import QtQuick
 import QtQuick.Controls
 import qs.Services.Theme
+import qs.Services.clipsh
 import qs.Components.common
 import Ryu.Extraa
 
@@ -12,6 +12,8 @@ Item {
     signal itemHandled
 
     property var chernobylRoot: null
+
+    readonly property var clipsh: ClipshService.clipsh
 
     readonly property int panelSize: 450
     readonly property int panelMinHeight: 100
@@ -31,24 +33,23 @@ Item {
     readonly property color emptyText: Theme.textSecondary
 
     implicitWidth: root.panelSize
-    implicitHeight: root._filteredCount === 0 ? root.panelMinHeight : Math.min(Math.max(62 + root._filteredCount * root.itemH, root.panelMinHeight), root.panelSize)
-
+    implicitHeight: root._filteredCount === 0 ? root.panelMinHeight : Math.min(Math.max(34 + topRow.height + listView.contentHeight, root.panelMinHeight), root.panelSize)
     property var _previewCache: ({})
     property var _filtered: []
     readonly property int _filteredCount: root._filtered.length
 
     function _rebuildPreviewCache() {
         const cache = {};
-        const h = clipsh.history;
+        const h = root.clipsh.history;
         for (let i = 0; i < h.length; i++) {
-            cache[h[i]] = clipsh.previewText(h[i]).toLowerCase();
+            cache[h[i]] = root.clipsh.previewText(h[i]).toLowerCase();
         }
         root._previewCache = cache;
     }
 
     function _applyFilter() {
         const q = searchBox.text.trim().toLowerCase();
-        const h = clipsh.history;
+        const h = root.clipsh.history;
         if (q === "") {
             root._filtered = h;
             return;
@@ -58,31 +59,34 @@ Item {
     }
 
     Component.onCompleted: {
-        clipsh.fetchHistory();
+        root._rebuildPreviewCache();
+        root._applyFilter();
+        root.clipsh.fetchHistory();
     }
 
     Connections {
-        target: clipsh
+        target: root.clipsh
         function onHistoryChanged() {
             root._rebuildPreviewCache();
             root._applyFilter();
+        }
+        function onActionFinished() {
+            root.itemHandled();
+        }
+        function onWiped() {
+            root.itemHandled();
+        }
+        function onError(msg) {
+            console.warn("[Clipsy]", msg);
         }
     }
 
     Connections {
         target: root.chernobylRoot
         function onFocusRequested() {
-            clipsh.fetchHistory();
+            root.clipsh.fetchHistory();
             searchBox.forceActiveFocus();
         }
-    }
-
-    Clipsh {
-        id: clipsh
-
-        onActionFinished: root.itemHandled()
-        onWiped: root.itemHandled()
-        onError: msg => console.warn("[Clipsy]", msg)
     }
 
     Row {
@@ -120,7 +124,7 @@ Item {
                     duration: 150
                 }
             }
-            onClicked: clipsh.wipe()
+            onClicked: root.clipsh.wipe()
         }
     }
 
@@ -146,13 +150,13 @@ Item {
 
             EmptyState {
                 anchors.centerIn: parent
-                visible: listView.count === 0 && !clipsh.loading
+                visible: listView.count === 0 && !root.clipsh.loading
                 title: "No clipboard history"
             }
 
             EmptyState {
                 anchors.centerIn: parent
-                visible: clipsh.loading
+                visible: root.clipsh.loading && listView.count === 0
                 title: "Loading…"
             }
 
@@ -180,13 +184,22 @@ Item {
 
                 required property var modelData
 
-                readonly property bool isImg: clipsh.isImage(modelData)
+                readonly property bool isImg: root.clipsh.isImage(modelData)
+                property string imageUrl: isImg ? root.clipsh.tempImagePath(modelData) : ""
                 property real dragX: 0
                 property bool actioning: false
                 readonly property real swipeThreshold: delegateRoot.width * 0.32
 
                 width: listView.width
                 height: delegateRoot.isImg ? 110 : 48
+
+                Connections {
+                    target: root.clipsh
+                    function onImageReady(entry, url) {
+                        if (entry === delegateRoot.modelData)
+                            delegateRoot.imageUrl = url;
+                    }
+                }
 
                 Rectangle {
                     anchors.fill: parent
@@ -236,25 +249,24 @@ Item {
 
                     Image {
                         id: thumbImage
-                        visible: delegateRoot.isImg && status !== Image.Error && source !== ""
+                        visible: delegateRoot.isImg && delegateRoot.imageUrl !== "" && status !== Image.Error
                         anchors.fill: parent
-                        anchors.margins: 6
-                        source: delegateRoot.isImg ? clipsh.tempImagePath(delegateRoot.modelData) : ""
-                        fillMode: Image.PreserveAspectFit
+                        source: delegateRoot.imageUrl
+                        fillMode: Image.PreserveAspectCrop
                         asynchronous: true
-                        cache: false
+                        cache: true
                         sourceSize.width: 400
                         sourceSize.height: 220
                     }
 
                     Text {
-                        visible: !delegateRoot.isImg || thumbImage.status === Image.Error || thumbImage.source === ""
+                        visible: !thumbImage.visible
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.leftMargin: 14
                         anchors.rightMargin: 14
-                        text: delegateRoot.isImg ? "[image — preview unavailable]" : clipsh.previewText(delegateRoot.modelData)
+                        text: !delegateRoot.isImg ? root.clipsh.previewText(delegateRoot.modelData) : (delegateRoot.imageUrl === "" ? "[image — decoding…]" : "[image — preview unavailable]")
                         color: itemMouse.containsMouse ? root.itemHoverText : root.itemText
                         font.pixelSize: 12
                         elide: Text.ElideRight
@@ -274,7 +286,7 @@ Item {
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
                         enabled: Math.abs(delegateRoot.dragX) < 4
-                        onClicked: clipsh.copyItem(delegateRoot.modelData)
+                        onClicked: root.clipsh.copyItem(delegateRoot.modelData)
                     }
 
                     DragHandler {
@@ -308,7 +320,7 @@ Item {
                     id: actionTimer
                     interval: 260
                     onTriggered: {
-                        clipsh.deleteItem(delegateRoot.modelData);
+                        root.clipsh.deleteItem(delegateRoot.modelData);
                         delegateRoot.actioning = false;
                         delegateRoot.dragX = 0;
                     }
