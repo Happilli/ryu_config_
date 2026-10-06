@@ -12,7 +12,7 @@ Item {
 
     property var chernobylRoot: null
 
-    readonly property int cols: 4
+    readonly property int cols: 3
     readonly property int radius: 12
 
     property var _sortedApps: []
@@ -63,7 +63,7 @@ Item {
         }
     }
 
-    implicitWidth: 500
+    implicitWidth: 380
     implicitHeight: mainLayout.implicitHeight
 
     Column {

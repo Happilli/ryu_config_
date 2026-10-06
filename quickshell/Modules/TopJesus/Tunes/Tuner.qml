@@ -255,102 +255,57 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             spacing: 6
 
-            Rectangle {
+            MaterialIconButton {
+                anchors.verticalCenter: parent.verticalCenter
                 width: 26
                 height: 26
-                radius: width / 2
-                color: prevMouse.containsMouse ? Theme.surfaceContainerHigh : "transparent"
-                border.color: Theme.outline
-                border.width: 2
                 visible: root.player ? root.player.canGoPrevious : false
-                anchors.verticalCenter: parent.verticalCenter
-
-                Behavior on color {
-                    ColorAnimation {
-                        duration: 150
-                    }
-                }
-
-                Text {
-                    anchors.centerIn: parent
-                    text: "\uf04a"
-                    font.pixelSize: 13
-                    color: Theme.onSurface
-                }
-                MouseArea {
-                    id: prevMouse
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        if (root.player)
-                            root.player.previous();
-                    }
+                type: MaterialIconButton.Outlined
+                shape: MaterialIconButton.Round
+                iconText: "\uf04a"
+                iconSize: 13
+                iconColor: Theme.onSurface
+                borderColor: Theme.outline
+                borderWidth: 2
+                onClicked: {
+                    if (root.player)
+                        root.player.previous();
                 }
             }
 
-            Rectangle {
+            MaterialIconButton {
+                anchors.verticalCenter: parent.verticalCenter
                 width: 30
                 height: 30
-                radius: width / 2
-                color: playMouse.containsMouse ? Theme.hover(Theme.primaryColor, Theme.onPrimary) : Theme.primaryColor
-                anchors.verticalCenter: parent.verticalCenter
-
-                Behavior on color {
-                    ColorAnimation {
-                        duration: 150
-                    }
-                }
-
-                Text {
-                    anchors.centerIn: parent
-                    text: root.isPlaying ? "\uf04c" : "\uf04b"
-                    font.pixelSize: 15
-                    color: Theme.onPrimary
-                }
-                MouseArea {
-                    id: playMouse
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        if (root.player)
-                            root.player.togglePlaying();
-                    }
+                type: MaterialIconButton.Filled
+                shape: root.isPlaying ? MaterialIconButton.Square : MaterialIconButton.Round
+                springStiffness: 380
+                springDamping: 0.28
+                iconText: root.isPlaying ? "\uf04c" : "\uf04b"
+                iconSize: 15
+                color: Theme.primaryColor
+                iconColor: Theme.onPrimary
+                onClicked: {
+                    if (root.player)
+                        root.player.togglePlaying();
                 }
             }
 
-            Rectangle {
+            MaterialIconButton {
+                anchors.verticalCenter: parent.verticalCenter
                 width: 26
                 height: 26
-                radius: width / 2
-                color: nextMouse.containsMouse ? Theme.surfaceContainerHigh : "transparent"
-                border.color: Theme.outline
-                border.width: 2
                 visible: root.player ? root.player.canGoNext : false
-                anchors.verticalCenter: parent.verticalCenter
-
-                Behavior on color {
-                    ColorAnimation {
-                        duration: 150
-                    }
-                }
-
-                Text {
-                    anchors.centerIn: parent
-                    text: "\uf04e"
-                    font.pixelSize: 13
-                    color: Theme.onSurface
-                }
-                MouseArea {
-                    id: nextMouse
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        if (root.player)
-                            root.player.next();
-                    }
+                type: MaterialIconButton.Outlined
+                shape: MaterialIconButton.Round
+                iconText: "\uf04e"
+                iconSize: 13
+                iconColor: Theme.onSurface
+                borderColor: Theme.outline
+                borderWidth: 2
+                onClicked: {
+                    if (root.player)
+                        root.player.next();
                 }
             }
         }

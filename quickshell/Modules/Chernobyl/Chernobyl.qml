@@ -16,12 +16,9 @@ Item {
 
     Keys.onEscapePressed: root.closeChernobyl()
 
-    Keys.onTabPressed: {
-        root.currentTab = (root.currentTab + 1) % root.tabs.length;
-    }
-
-    Keys.onBacktabPressed: {
-        root.currentTab = (root.currentTab - 1 + root.tabs.length) % root.tabs.length;
+    Shortcut {
+        sequence: "Tab"
+        onActivated: root.currentTab = (root.currentTab + 1) % root.tabs.length
     }
 
     readonly property var tabs: [
@@ -36,10 +33,6 @@ Item {
         {
             "label": "Daily Wars",
             "component": warComp
-        },
-        {
-            "label": "Nihongo",
-            "component": nihongoComp
         }
     ]
 
@@ -81,10 +74,6 @@ Item {
     Component {
         id: warComp
         War {}
-    }
-    Component {
-        id: nihongoComp
-        Nihongo {}
     }
     Column {
         id: mainColumn

@@ -5,6 +5,7 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Widgets
 import Ryu.Extraa
+import Ryu.Shapes
 import qs.Services.Shapes
 import qs.Services.Theme
 import qs.utils
@@ -109,6 +110,7 @@ Item {
         running: false
         onExited: {
             root.isRefreshing = false;
+            refreshShape.shape = MaterialShape.SoftBurst;
             searchBox.text = "";
             filteredModel.clear();
             folderModel.folder = "";
@@ -186,7 +188,7 @@ Item {
                                 fillMode: Image.PreserveAspectCrop
                                 smooth: true
                                 asynchronous: true
-                                cache: false
+                                cache: true
                                 sourceSize.width: 320
                                 sourceSize.height: 260
                             }
@@ -268,7 +270,7 @@ Item {
                         property bool expanded: searchHover.hovered || inputFocused || text !== ""
                         width: expanded ? 320 : 44
                         height: 44
-                        placeholderText: "Search: press Enter"
+                        placeholderText: "Search and  press Enter"
 
                         onReturnPressed: {
                             root.applyFilter(text);
@@ -298,57 +300,28 @@ Item {
                     }
                 }
 
-                Rectangle {
+                MaterialShape {
+                    id: refreshShape
                     anchors {
                         right: parent.right
                         verticalCenter: parent.verticalCenter
                     }
                     width: 44
                     height: 44
-                    radius: refreshMouse.containsMouse ? 22 : 12
-                    color: refreshMouse.containsMouse ? Theme.hover(Theme.card) : Theme.card
-                    border {
-                        width: 1
-                        color: Theme.divider
-                    }
-                    enabled: !root.isRefreshing
+                    shape: MaterialShape.SoftBurst
+                    color: Theme.primaryColor
+                    loading: root.isRefreshing
 
-                    Text {
-                        anchors.centerIn: parent
-                        text: "\udb84\udf7f"
-                        color: Theme.onSurface
-                        font {
-                            pixelSize: 24
-                        }
-                        NumberAnimation on rotation {
-                            running: root.isRefreshing
-                            from: 0
-                            to: 360
-                            duration: 1000
-                            loops: Animation.Infinite
-                        }
-                    }
-
-                    MouseArea {
-                        id: refreshMouse
-                        anchors.fill: parent
-                        hoverEnabled: true
+                    HoverHandler {
                         cursorShape: Qt.PointingHandCursor
-                        onClicked: {
+                    }
+
+                    TapHandler {
+                        onTapped: {
+                            if (root.isRefreshing)
+                                return;
                             root.isRefreshing = true;
                             bamProcess.running = true;
-                        }
-                    }
-
-                    Behavior on radius {
-                        NumberAnimation {
-                            duration: 250
-                            easing.type: Easing.OutCubic
-                        }
-                    }
-                    Behavior on color {
-                        ColorAnimation {
-                            duration: 200
                         }
                     }
                 }

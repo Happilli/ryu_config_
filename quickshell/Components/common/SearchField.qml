@@ -17,42 +17,49 @@ Rectangle {
     function forceActiveFocus() {
         input.forceActiveFocus();
     }
+
     function clearFocus() {
         input.focus = false;
     }
 
-    height: root.inputHeight
+    implicitHeight: inputHeight
     radius: 12
     color: Theme.cardInner
-    border.color: Theme.outlineVariant
-    border.width: 1
+    border {
+        width: 1
+        color: Theme.outlineVariant
+    }
     clip: true
 
     Text {
         id: searchIcon
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.left: parent.left
-        anchors.leftMargin: 10
+        anchors {
+            left: parent.left
+            leftMargin: 10
+            verticalCenter: parent.verticalCenter
+        }
         text: "\uedfb"
-        font.pixelSize: 15
         color: Theme.textSecondary
+        font.pixelSize: 15
     }
 
     TextField {
         id: input
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.left: searchIcon.right
-        anchors.right: parent.right
-        anchors.leftMargin: 6
-        anchors.rightMargin: 8
+        anchors {
+            left: searchIcon.right
+            leftMargin: 6
+            right: parent.right
+            rightMargin: 8
+            verticalCenter: parent.verticalCenter
+        }
         height: root.inputHeight
         placeholderText: root.placeholderText
         placeholderTextColor: Theme.textSecondary
         color: Theme.onSurface
         font.pixelSize: 13
+        background: null
+
         onTextChanged: root.textEdited()
         Keys.onReturnPressed: root.returnPressed()
-
-        background: Item {}
     }
 }

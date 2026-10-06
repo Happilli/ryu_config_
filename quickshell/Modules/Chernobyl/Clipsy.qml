@@ -4,6 +4,7 @@ import QtQuick
 import QtQuick.Controls
 import qs.Services.Theme
 import qs.Components.common
+import Ryu.Extraa
 
 Item {
     id: root
@@ -105,35 +106,21 @@ Item {
             }
         }
 
-        Rectangle {
+        MaterialIconButton {
             width: 38
             height: 38
-            radius: root.radius
-            color: wipeMouse.containsMouse ? root.wipeBgHover : root.wipeBg
-            clip: true
-
-            Text {
-                anchors.centerIn: parent
-                text: "\udb80\uddb4"
-                font.pixelSize: 16
-                color: wipeMouse.containsMouse ? root.wipeIconHover : root.wipeIcon
-            }
-
-            MouseArea {
-                id: wipeMouse
-
-                anchors.fill: parent
-                hoverEnabled: true
-                cursorShape: Qt.PointingHandCursor
-                onClicked: clipsh.wipe()
-            }
-
+            type: MaterialIconButton.Tonal
+            shape: MaterialIconButton.Square
+            iconText: "\udb80\uddb4"
+            iconSize: 16
+            color: hovered ? root.wipeBgHover : root.wipeBg
+            iconColor: hovered ? root.wipeIconHover : root.wipeIcon
             Behavior on color {
                 ColorAnimation {
                     duration: 150
-                    easing.type: Easing.OutQuad
                 }
             }
+            onClicked: clipsh.wipe()
         }
     }
 
