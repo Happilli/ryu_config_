@@ -12,7 +12,7 @@ Rectangle {
 
     width: parent.width
     height: 44
-    color: mouse.containsMouse ? Theme.surfaceBright : "transparent"
+    color: mouse.containsMouse ? Theme.hover(Theme.shell) : "transparent"
     radius: 6
 
     Row {

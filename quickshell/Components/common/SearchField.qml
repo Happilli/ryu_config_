@@ -23,7 +23,7 @@ Rectangle {
 
     height: root.inputHeight
     radius: 12
-    color: Theme.surfaceContainer
+    color: Theme.cardInner
     border.color: Theme.outlineVariant
     border.width: 1
     clip: true
@@ -35,7 +35,7 @@ Rectangle {
         anchors.leftMargin: 10
         text: "\uedfb"
         font.pixelSize: 15
-        color: Theme.onSurface
+        color: Theme.textSecondary
     }
 
     TextField {
@@ -47,7 +47,7 @@ Rectangle {
         anchors.rightMargin: 8
         height: root.inputHeight
         placeholderText: root.placeholderText
-        placeholderTextColor: Theme.onSurface
+        placeholderTextColor: Theme.textSecondary
         color: Theme.onSurface
         font.pixelSize: 13
         onTextChanged: root.textEdited()

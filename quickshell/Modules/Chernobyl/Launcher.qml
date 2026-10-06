@@ -127,7 +127,7 @@ Item {
                         anchors.fill: parent
                         anchors.margins: 4
                         radius: root.radius - 4
-                        color: itemMouse.containsMouse ? Theme.primaryContainer : "transparent"
+                        color: itemMouse.containsMouse ? Theme.card : "transparent"
 
                         Behavior on color {
                             ColorAnimation {

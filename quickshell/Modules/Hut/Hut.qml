@@ -12,7 +12,7 @@ Item {
     id: root
     property bool isHovered: false
     property bool isPinned: false
-    property color barColor: Theme.surfaceContainerLow
+    property color barColor: Theme.shell
 
     property real collapsedWidth: 0.1
     property real expandedWidth: 340

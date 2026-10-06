@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Ryu.Extraa
 import qs.Services.Theme
+import qs.Components.common
 import qs.utils
 
 Item {
@@ -46,20 +47,13 @@ Item {
         config.toggle();
     }
 
-    MaterialButtonGroup {
+    ThemedButtonGroup {
         id: group
         anchors.centerIn: parent
-        variant: MaterialButtonGroup.Connected
         sizeStyle: MaterialButtonGroup.Medium
         selectionMode: MaterialButtonGroup.Multiple
         icons: root.buttonModel.map(b => b.icon)
         checkedIndices: root.activeIndices
-        borderWidth: 1
-        borderColor: Theme.outlineVariant
-        color: Theme.surfaceContainerHigh
-        textColor: Theme.onSurface
-        checkedColor: Theme.primaryColor
-        checkedTextColor: Theme.onPrimary
         onClicked: index => root.toggle(root.buttonModel[index].service)
     }
 }

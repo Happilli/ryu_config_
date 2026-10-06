@@ -11,7 +11,7 @@ Item {
         id: contextMenu
         width: 140
         height: 162
-        color: Theme.surfaceContainer
+        color: Theme.shell
         radius: 8
         visible: false
         z: 1000

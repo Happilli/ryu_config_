@@ -131,7 +131,7 @@ Item {
         width: parent.width
         height: sheetCol.height + 28
         radius: 16
-        color: Theme.surfaceContainer
+        color: Theme.cardInner
         border.width: 1
         border.color: Theme.outlineVariant
 
@@ -164,7 +164,7 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     text: root.monthName + " " + root.targetDay
                     font.pixelSize: 11
-                    color: Theme.onSurface
+                    color: Theme.textSecondary
                 }
             }
 
@@ -172,9 +172,9 @@ Item {
                 width: parent.width
                 height: 38
                 radius: 10
-                color: Theme.surfaceContainer
+                color: Theme.card
                 border.width: titleInput.activeFocus ? 2 : 1
-                border.color: titleInput.activeFocus ? Theme.outlineColor : Theme.outlineVariant
+                border.color: titleInput.activeFocus ? Theme.outline : Theme.outlineVariant
                 Behavior on border.color {
                     ColorAnimation {
                         duration: 150
@@ -196,7 +196,7 @@ Item {
                     Text {
                         visible: !titleInput.text && !titleInput.activeFocus
                         text: "Title"
-                        color: Theme.onSurface
+                        color: Theme.textSecondary
                         font.pixelSize: 13
                         anchors.verticalCenter: parent.verticalCenter
                     }
@@ -210,9 +210,9 @@ Item {
                 width: parent.width
                 height: 38
                 radius: 10
-                color: Theme.surfaceContainer
+                color: Theme.card
                 border.width: descInput.activeFocus ? 2 : 1
-                border.color: descInput.activeFocus ? Theme.outlineColor : Theme.outlineVariant
+                border.color: descInput.activeFocus ? Theme.outline : Theme.outlineVariant
                 Behavior on border.color {
                     ColorAnimation {
                         duration: 150
@@ -234,7 +234,7 @@ Item {
                     Text {
                         visible: !descInput.text && !descInput.activeFocus
                         text: "Description"
-                        color: Theme.onSurface
+                        color: Theme.textSecondary
                         font.pixelSize: 13
                         anchors.verticalCenter: parent.verticalCenter
                     }
@@ -261,7 +261,7 @@ Item {
                     width: 70
                     height: 34
                     radius: 17
-                    color: saveMouse.containsMouse ? Theme.primaryContainer : Theme.surfaceContainerLow
+                    color: saveMouse.containsMouse ? Theme.hover(Theme.primaryColor, Theme.onPrimary) : Theme.primaryColor
                     border.width: 1
                     border.color: Theme.outlineVariant
                     Behavior on color {
@@ -275,7 +275,7 @@ Item {
                         text: "Save"
                         font.pixelSize: 12
                         font.weight: Font.Medium
-                        color: saveMouse.containsMouse ? Theme.onPrimaryContainer : Theme.onSurface
+                        color: Theme.onPrimary
                     }
 
                     MouseArea {
@@ -299,7 +299,7 @@ Item {
                     width: 70
                     height: 34
                     radius: 17
-                    color: cancelMouse.containsMouse ? Theme.surfaceContainerHighest : Theme.surfaceContainerLow
+                    color: cancelMouse.containsMouse ? Theme.hover(Theme.card) : Theme.card
                     border.width: 1
                     border.color: Theme.outlineVariant
                     Behavior on color {
@@ -329,7 +329,7 @@ Item {
                     width: 70
                     height: 34
                     radius: 17
-                    color: deleteMouse.containsMouse ? Theme.errorContainer : Theme.surfaceContainerLow
+                    color: deleteMouse.containsMouse ? Theme.errorContainer : Theme.card
                     border.width: 1
                     border.color: Theme.outlineVariant
                     Behavior on color {

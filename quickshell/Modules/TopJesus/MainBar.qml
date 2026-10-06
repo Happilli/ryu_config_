@@ -36,7 +36,7 @@ Item {
         alignment: 0
         clip: true
         radius: 20
-        color: Theme.surfaceContainer
+        color: Theme.shell
 
         Item {
             anchors.fill: parent
@@ -124,7 +124,7 @@ Item {
                         radius: 8
                         width: iconRowContent.width + 20
                         anchors.centerIn: parent
-                        color: barRoot.activePopout > 0 ? Theme.surfaceContainerHighest : Theme.surfaceContainerHigh
+                        color: barRoot.activePopout > 0 ? Theme.cardInner : Theme.card
                         border.color: barRoot.activePopout > 0 ? Theme.primaryColor : Theme.outlineVariant
                         border.width: barRoot.activePopout > 0 ? 1 : 0.5
 
@@ -151,7 +151,7 @@ Item {
                                         anchors.centerIn: parent
                                         text: iconRect.modelData.icon
                                         font.pixelSize: 20
-                                        color: barRoot.activePopout === iconRect.modelData.id ? Theme.primaryColor : iMouse.containsMouse ? Theme.primaryFixedDim : Theme.onSurface
+                                        color: barRoot.activePopout === iconRect.modelData.id ? Theme.primaryColor : iMouse.containsMouse ? Theme.onSurface : Theme.textSecondary
                                         rotation: iconRect.isGear && iMouse.containsMouse ? 90 : 0
 
                                         Behavior on color {

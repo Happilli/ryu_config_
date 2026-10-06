@@ -9,7 +9,7 @@ ShaderEffect {
     property var source: null
     property rect rectA: Qt.rect(0, 0, 0, 0)
     property rect rectB: Qt.rect(0, 0, 0, 0)
-    property color fillColor: Theme.surfaceContainer
+    property color fillColor: Theme.shell
     property real cornerRadius: 16
     property real smoothness: 24
     property bool active: false

@@ -5,8 +5,8 @@ import qs.Services.Theme
 Rectangle {
     default property alias content: contentItem.data
     property real cardRadius: 12
-    property color surface: Theme.surfaceContainerLow
-    property color borderColor: Theme.outlineVariant
+    property color surface: Theme.card
+    property color borderColor: Theme.divider
     property real borderWidth: 1
 
     radius: cardRadius

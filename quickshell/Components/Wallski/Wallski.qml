@@ -122,7 +122,7 @@ Item {
         height: root.isHovered ? 330 : 0.1
         alignment: 1
         radius: 15
-        color: Theme.surfaceContainerLow
+        color: Theme.shell
         clip: true
 
         Column {
@@ -137,7 +137,7 @@ Item {
                 width: parent.width
                 height: 260
                 radius: 14
-                color: Theme.surfaceContainerLow
+                color: Theme.card
 
                 ListView {
                     id: listView
@@ -178,7 +178,7 @@ Item {
                         ClippingRectangle {
                             anchors.fill: parent
                             radius: 14
-                            color: Theme.surfaceContainerHighest
+                            color: Theme.cardInner
 
                             Image {
                                 anchors.fill: parent
@@ -287,20 +287,13 @@ Item {
                             }
                         }
                     }
-                    MaterialButtonGroup {
+                    ThemedButtonGroup {
                         anchors.verticalCenter: parent.verticalCenter
-                        variant: MaterialButtonGroup.Connected
                         sizeStyle: MaterialButtonGroup.Small
                         selectionMode: MaterialButtonGroup.Single
                         labels: Theme.schemeTypes.map(t => Theme.getSchemeDisplayName(t))
                         currentIndex: Theme.schemeTypes.indexOf(Theme.currentSchemeType)
                         fontWeight: Font.Normal
-                        borderWidth: 1
-                        borderColor: Theme.outlineVariant
-                        color: Theme.surfaceContainer
-                        textColor: Theme.onSurface
-                        checkedColor: Theme.primaryColor
-                        checkedTextColor: Theme.onPrimary
                         onToggled: (index, on) => Theme.setSchemeType(Theme.schemeTypes[index])
                     }
                 }
@@ -313,10 +306,10 @@ Item {
                     width: 44
                     height: 44
                     radius: refreshMouse.containsMouse ? 22 : 12
-                    color: refreshMouse.containsMouse ? Theme.surfaceContainerHighest : Theme.surfaceContainerHigh
+                    color: refreshMouse.containsMouse ? Theme.hover(Theme.card) : Theme.card
                     border {
                         width: 1
-                        color: Theme.outlineVariant
+                        color: Theme.divider
                     }
                     enabled: !root.isRefreshing
 

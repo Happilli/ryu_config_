@@ -208,9 +208,9 @@ Item {
         Rectangle {
             anchors.fill: parent
             radius: 12
-            color: Theme.surfaceContainer
-            // border.width: 2
-            // border.color: Theme.outlineColor
+            color: Theme.shell
+            border.width: 1
+            border.color: Theme.divider
 
             transform: Scale {
                 id: cardScale
@@ -325,7 +325,7 @@ Item {
                 Text {
                     Layout.alignment: Qt.AlignVCenter
                     text: tile.displayApp
-                    color: Theme.onSurface
+                    color: Theme.textSecondary
 
                     font {
                         pixelSize: 11
@@ -341,7 +341,7 @@ Item {
                     Layout.alignment: Qt.AlignVCenter
                     visible: tile.overflows
                     text: "\uedfb"
-                    color: expandHover.hovered ? Theme.primaryColor : Theme.onSurface
+                    color: expandHover.hovered ? Theme.primaryColor : Theme.textSecondary
                     rotation: tile.expanded ? 90 : 0
 
                     font {

@@ -110,7 +110,7 @@ Item {
             height: Math.max(minTabHeight, tabLoader.implicitHeight)
 
             cardRadius: 20
-            surface: Theme.surfaceContainer
+            surface: Theme.shell
             clip: true
 
             readonly property real minTabWidth: 400

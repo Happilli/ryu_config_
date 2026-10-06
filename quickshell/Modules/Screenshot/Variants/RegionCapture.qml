@@ -89,15 +89,15 @@ Item {
     }
 
     component Overlay: Rectangle {
-        color: Theme.backgroundColor
-        opacity: 0.85
+        color: Theme.scrimColor
+        opacity: 0.6
     }
 
     component Corner: Rectangle {
         width: 12
         height: 12
         radius: 6
-        color: Theme.surfaceColor
+        color: Theme.onPrimary
         border.color: Theme.primaryColor
         border.width: 2
     }

@@ -65,7 +65,7 @@ Item {
             width: parent.width
             height: parent.height
             radius: width / 2
-            color: Theme.surfaceContainerHigh
+            color: Theme.shell
             antialiasing: true
         }
 
@@ -79,7 +79,7 @@ Item {
 
             ShapePath {
                 strokeWidth: 4
-                strokeColor: OsdConfig.isMuted ? Theme.outlineColor : Theme.primaryColor
+                strokeColor: OsdConfig.isMuted ? Theme.outline : Theme.primaryColor
                 fillColor: "transparent"
                 capStyle: ShapePath.RoundCap
 

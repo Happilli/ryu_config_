@@ -57,8 +57,8 @@ Item {
             var ctx = getContext("2d");
             ctx.reset();
 
-            ctx.fillStyle = Theme.backgroundColor;
-            ctx.globalAlpha = 0.85;
+            ctx.fillStyle = Theme.scrimColor;
+            ctx.globalAlpha = 0.6;
             ctx.fillRect(0, 0, width, height);
             ctx.globalAlpha = 1.0;
 
@@ -106,7 +106,7 @@ Item {
                 ctx.fillStyle = Theme.primaryColor;
                 ctx.fill();
                 ctx.lineWidth = 2;
-                ctx.strokeStyle = "#FFFFFF";
+                ctx.strokeStyle = Theme.onPrimary;
                 ctx.stroke();
             }
         }

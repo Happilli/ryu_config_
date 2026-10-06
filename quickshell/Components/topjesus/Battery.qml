@@ -38,6 +38,19 @@ Row {
                     return Theme.onSurface;
                 }
 
+                property color onAccent: {
+                    if (isCharging || isFullyCharged) {
+                        return Theme.onPrimary;
+                    }
+                    if (percentInt <= 10) {
+                        return Theme.onError;
+                    }
+                    if (percentInt <= 20) {
+                        return Theme.onTertiary;
+                    }
+                    return Theme.shell;
+                }
+
                 property string displayText: isCharging ? "󱐋" : `${percentInt}`
             }
 
@@ -95,7 +108,7 @@ Row {
                         text: batteryData.displayText
                         font.pixelSize: batteryData.isCharging ? 16 : 12
                         font.bold: true
-                        color: batteryData.percentage > 0.5 ? Theme.backgroundColor : batteryData.accentColor
+                        color: batteryData.percentage > 0.5 ? batteryData.onAccent : batteryData.accentColor
 
                         SequentialAnimation on opacity {
                             running: batteryData.isCharging

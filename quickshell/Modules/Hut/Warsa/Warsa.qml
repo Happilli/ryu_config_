@@ -24,7 +24,6 @@ Item {
         width: calendarContent.width + 40
         height: calendarContent.height + 32
         cardRadius: 20
-        surface: Theme.surfaceContainer
 
         Behavior on width {
             NumberAnimation {
@@ -70,7 +69,7 @@ Item {
                         shape: MaterialIconButton.Round
                         iconSize: 20
                         iconText: "<"
-                        color: Theme.surfaceContainerHigh
+                        color: Theme.cardInner
                         iconColor: Theme.onSurface
                         enabled: !eventSheet.visible
                         onClicked: calendar.previousMonth()
@@ -83,7 +82,7 @@ Item {
                         shape: MaterialIconButton.Round
                         iconSize: 20
                         iconText: ">"
-                        color: Theme.surfaceContainerHigh
+                        color: Theme.cardInner
                         iconColor: Theme.onSurface
                         enabled: !eventSheet.visible
                         onClicked: calendar.nextMonth()
@@ -115,7 +114,7 @@ Item {
                             text: dayHeaderItem.modelData
                             font.pixelSize: 12
                             font.weight: Font.Medium
-                            color: Theme.onSurface
+                            color: Theme.textSecondary
                         }
                     }
                 }
@@ -186,15 +185,14 @@ Item {
                         color: {
                             if (dayRect.modelData.day === 0)
                                 return "transparent";
+                            let base = Theme.cardInner;
                             if (dayRect.modelData.isToday)
-                                return Theme.primaryContainer;
-                            if (dayMouse.containsMouse)
-                                return Theme.secondaryContainer;
-                            if (dayRect.modelData.hasEvent)
-                                return Theme.tertiaryContainer;
-                            if (dayRect.modelData.isSaturday)
-                                return Theme.errorContainer;
-                            return Theme.surfaceContainerHigh;
+                                base = Theme.primaryColor;
+                            else if (dayRect.modelData.hasEvent)
+                                base = Theme.tertiaryContainer;
+                            else if (dayRect.modelData.isSaturday)
+                                base = Theme.errorContainer;
+                            return dayMouse.containsMouse ? Theme.hover(base) : base;
                         }
 
                         Behavior on color {
@@ -211,9 +209,7 @@ Item {
                             font.weight: dayRect.modelData.isToday ? Font.Medium : Font.Normal
                             color: {
                                 if (dayRect.modelData.isToday)
-                                    return Theme.onPrimaryContainer;
-                                if (dayMouse.containsMouse)
-                                    return Theme.onSecondaryContainer;
+                                    return Theme.onPrimary;
                                 if (dayRect.modelData.hasEvent)
                                     return Theme.onTertiaryContainer;
                                 if (dayRect.modelData.isSaturday)
@@ -263,7 +259,7 @@ Item {
                     height: 36
                     radius: 18
                     anchors.right: parent.right
-                    color: todayMouse.containsMouse ? Theme.primaryContainer : Theme.surfaceContainerHigh
+                    color: todayMouse.containsMouse ? Theme.hover(Theme.cardInner) : Theme.cardInner
                     Behavior on color {
                         ColorAnimation {
                             duration: 200
@@ -276,7 +272,7 @@ Item {
                         text: "Today"
                         font.pixelSize: 11
                         font.weight: Font.Normal
-                        color: todayMouse.containsMouse ? Theme.onPrimaryContainer : Theme.onSurface
+                        color: Theme.onSurface
                         Behavior on color {
                             ColorAnimation {
                                 duration: 200
@@ -301,7 +297,7 @@ Item {
 
             anchors.fill: parent
             radius: calendarCard.cardRadius
-            color: Theme.surfaceContainer
+            color: Theme.card
             opacity: eventSheet.visible ? 0.6 : 0
             visible: opacity > 0
             z: 10
@@ -343,7 +339,7 @@ Item {
         width: 220
         height: popupText.height + 16
         radius: 16
-        color: Theme.surfaceContainerHighest
+        color: Theme.cardInner
         z: 1000
         opacity: 0
 

@@ -11,7 +11,7 @@ Item {
     property int workspaceSize: 0
     property int spacing: 0
     property color activeColor: Theme.primaryColor
-    property color occupiedColor: Theme.onSurface
+    property color occupiedColor: Theme.textSecondary
     readonly property var jpN: ["", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十"]
     readonly property var monitor: Hyprland.monitorFor(root.parentScreen)
     readonly property int activeWorkspaceId: monitor?.activeWorkspace?.id ?? 1

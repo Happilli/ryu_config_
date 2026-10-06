@@ -18,16 +18,16 @@ Item {
     readonly property int radius: 12
     readonly property color inputBg: Theme.surfaceContainer
     readonly property color inputBorder: Theme.outlineVariant
-    readonly property color itemBg: Theme.surfaceContainerHigh
-    readonly property color itemHoverBg: Theme.primaryContainer
+    readonly property color itemBg: Theme.card
+    readonly property color itemHoverBg: Theme.hover(Theme.card)
     readonly property color itemText: Theme.onSurface
-    readonly property color itemHoverText: Theme.onPrimaryContainer
+    readonly property color itemHoverText: Theme.onSurface
     readonly property color iconColor: Theme.onSurface
-    readonly property color wipeBg: Theme.surfaceContainer
+    readonly property color wipeBg: Theme.card
     readonly property color wipeBgHover: Theme.errorContainer
     readonly property color wipeIcon: Theme.onSurface
     readonly property color wipeIconHover: Theme.onErrorContainer
-    readonly property color emptyText: Theme.onSurface
+    readonly property color emptyText: Theme.textSecondary
 
     implicitWidth: root.panelSize
     implicitHeight: root._filteredCount === 0 ? root.panelMinHeight : Math.min(Math.max(62 + root._filteredCount * root.itemH, root.panelMinHeight), root.panelSize)

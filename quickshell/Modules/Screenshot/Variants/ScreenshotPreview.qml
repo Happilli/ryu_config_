@@ -44,8 +44,8 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: Theme.backgroundColor
-        opacity: 0.85
+        color: Theme.scrimColor
+        opacity: 0.6
 
         MouseArea {
             anchors.fill: parent
@@ -73,7 +73,7 @@ Item {
             anchors.top: parent.top
             anchors.horizontalCenter: parent.horizontalCenter
             radius: 28
-            color: Theme.surfaceColor
+            color: Theme.shell
             border.color: Theme.outlineVariant
             border.width: 1
             layer.enabled: true
@@ -121,7 +121,7 @@ Item {
                         anchors.fill: parent
                         radius: 26
                         color: delegateItem.modelData.isPrimary ? (btn.containsMouse ? Theme.primaryColor : Theme.surfaceContainerHighest) : (btn.containsMouse ? Theme.surfaceContainerHigh : Theme.surfaceContainerLow)
-                        border.color: delegateItem.modelData.isPrimary ? "transparent" : (btn.containsMouse ? Theme.outlineColor : Theme.outlineVariant)
+                        border.color: delegateItem.modelData.isPrimary ? "transparent" : (btn.containsMouse ? Theme.outline : Theme.outlineVariant)
                         border.width: 1
                         scale: btn.containsMouse ? 1.08 : 1.0
 
@@ -148,7 +148,7 @@ Item {
                             anchors.centerIn: parent
                             text: delegateItem.modelData.icon
                             font.pixelSize: 18
-                            color: (delegateItem.modelData.isPrimary && btn.containsMouse) ? Theme.onPrimary : Theme.textColor
+                            color: (delegateItem.modelData.isPrimary && btn.containsMouse) ? Theme.onPrimary : Theme.textPrimary
 
                             Behavior on color {
                                 ColorAnimation {

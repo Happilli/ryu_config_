@@ -20,7 +20,7 @@ Item {
         height: 32
         cardRadius: 8
         width: iconStrip.implicitWidth + 20
-        surface: Theme.surfaceContainerHigh
+        surface: Theme.card
         border.color: Theme.outlineVariant
         border.width: 0.5
 

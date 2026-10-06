@@ -45,8 +45,34 @@ QtObject {
     property var _palette: ({})
     property var _base16: ({})
 
+    readonly property var _fallback: ({
+            "background": "#10150b",
+            "surface": "#10150b",
+            "surface_bright": "#363b2f",
+            "surface_container": "#1c2116",
+            "surface_container_low": "#181d13",
+            "surface_container_lowest": "#0b1006",
+            "surface_container_high": "#272c20",
+            "surface_container_highest": "#32362b",
+            "surface_dim": "#10150b",
+            "surface_variant": "#414937",
+            "on_background": "#e0e4d3",
+            "on_surface": "#e0e4d3",
+            "on_surface_variant": "#c1cab2",
+            "primary": "#a0ec4c",
+            "on_primary": "#1d3700",
+            "primary_container": "#86cf30",
+            "on_primary_container": "#1c3500",
+            "error": "#ffb4ab",
+            "on_error": "#690005",
+            "outline": "#8b947e",
+            "outline_variant": "#414937",
+            "scrim": "#000000",
+            "shadow": "#000000"
+        })
+
     function _get(key) {
-        return root._c[key] ?? "";
+        return root._c[key] ?? root._fallback[key] ?? "#000000";
     }
 
     function palette(key) {
@@ -58,7 +84,6 @@ QtObject {
     }
 
     property color backgroundColor: root._get("background")
-    property color surfaceColor: root._get("surface")
     property color surfaceBright: root._get("surface_bright")
     property color surfaceContainer: root._get("surface_container")
     property color surfaceContainerLow: root._get("surface_container_low")
@@ -99,16 +124,32 @@ QtObject {
     property color onTertiaryFixedVariant: root._get("on_tertiary_fixed_variant")
     property color onError: root._get("on_error")
     property color onErrorContainer: root._get("on_error_container")
-    property color outlineColor: root._get("outline")
+    property color outline: root._get("outline")
     property color outlineVariant: root._get("outline_variant")
     property color inverseSurface: root._get("inverse_surface")
     property color inverseOnSurface: root._get("inverse_on_surface")
     property color inversePrimary: root._get("inverse_primary")
     property color scrimColor: root._get("scrim")
     property color shadowColor: root._get("shadow")
-    property color accentColor: root.primaryColor
-    property color textColor: root.onBackground
-    property color dimColor: root.outlineColor
+
+    readonly property color shell: root.surfaceContainer
+    readonly property color card: root.surfaceContainerHigh
+    readonly property color cardInner: root.surfaceContainerHighest
+    readonly property color textPrimary: root.onSurface
+    readonly property color textSecondary: Qt.rgba(root.onSurface.r, root.onSurface.g, root.onSurface.b, 0.72)
+    readonly property color divider: root.outlineVariant
+
+    function layer(base, on, amount) {
+        return Qt.tint(base, Qt.rgba(on.r, on.g, on.b, amount));
+    }
+
+    function hover(base, on) {
+        return root.layer(base, on ?? root.onSurface, 0.08);
+    }
+
+    function press(base, on) {
+        return root.layer(base, on ?? root.onSurface, 0.12);
+    }
 
     property FileView jsonFile: FileView {
         path: root.colorsPath
@@ -153,6 +194,7 @@ QtObject {
             root.saveTheme();
         }
     }
+
     onIsDarkModeChanged: {
         root.saveTheme();
         root.generateColors();

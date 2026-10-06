@@ -117,15 +117,15 @@ Item {
                         glyphSize: 24
                         color: {
                             if (chip.hovered) {
-                                return chip.running ? Theme.primaryContainer : Theme.errorContainer;
+                                return chip.running ? Theme.hover(Theme.primaryColor, Theme.onPrimary) : Theme.errorContainer;
                             }
-                            return chip.running ? Theme.primaryColor : Theme.surfaceContainerHigh;
+                            return chip.running ? Theme.primaryColor : Theme.cardInner;
                         }
                         glyphColor: {
                             if (chip.hovered) {
-                                return chip.running ? Theme.onPrimaryContainer : Theme.onErrorContainer;
+                                return chip.running ? Theme.onPrimary : Theme.onErrorContainer;
                             }
-                            return chip.running ? Theme.surfaceContainer : Theme.onSurface;
+                            return chip.running ? Theme.onPrimary : Theme.textSecondary;
                         }
                         Behavior on color {
                             ColorAnimation {

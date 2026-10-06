@@ -43,7 +43,7 @@ Scope {
                         anchors.fill: parent
                         z: -1
                         active: hutRef.isHovered || hutRef.isPinned
-                        fillColor: Theme.surfaceContainer
+                        fillColor: Theme.shell
                         rectA: {
                             const p = topJesusRef.mapToItem(hyperixonContent, 0, 0);
                             const probeWidth = 120;
@@ -64,7 +64,7 @@ Scope {
 
                     Hut {
                         id: hutRef
-                        barColor: Theme.surfaceContainer
+                        barColor: Theme.shell
                         anchors {
                             top: parent.top
                             bottom: parent.bottom

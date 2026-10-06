@@ -69,7 +69,7 @@ Item {
         width: 620
         height: 80
         cardRadius: 16
-        surface: Theme.surfaceContainer
+        surface: Theme.shell
 
         Row {
             anchors.centerIn: parent
@@ -120,9 +120,9 @@ Item {
                 shape: artiqa.isJiggleMode ? MaterialIconButton.Round : MaterialIconButton.Square
                 iconSize: 22
                 iconText: "\ued71"
-                color: artiqa.isJiggleMode ? Theme.primaryContainer : Theme.surfaceContainerHigh
-                iconColor: artiqa.isJiggleMode ? Theme.onPrimaryContainer : Theme.onSurface
-                borderColor: artiqa.isJiggleMode ? Theme.primaryColor : Theme.outlineVariant
+                color: artiqa.isJiggleMode ? Theme.primaryColor : Theme.card
+                iconColor: artiqa.isJiggleMode ? Theme.onPrimary : Theme.onSurface
+                borderColor: artiqa.isJiggleMode ? Theme.primaryColor : Theme.divider
                 borderWidth: 1
                 onClicked: {
                     if (artiqa.isJiggleMode) {
@@ -149,7 +149,7 @@ Item {
         y: anchorY - height - 8
         width: 84
         height: sizeDropdownColumn.implicitHeight + 16
-        surface: Theme.surfaceContainer
+        surface: Theme.card
 
         opacity: visible ? 1.0 : 0.0
         scale: visible ? 1.0 : 0.95
@@ -186,8 +186,8 @@ Item {
                     shape: sizeItem.selected ? MaterialIconButton.Round : MaterialIconButton.Square
                     iconSize: 18
                     iconText: String(sizeItem.modelData)
-                    color: sizeItem.selected ? Theme.primaryContainer : Theme.surfaceContainerHigh
-                    iconColor: sizeItem.selected ? Theme.onPrimaryContainer : Theme.onSurface
+                    color: sizeItem.selected ? Theme.primaryColor : Theme.cardInner
+                    iconColor: sizeItem.selected ? Theme.onPrimary : Theme.onSurface
                     onClicked: {
                         sizeSection.currentSize = sizeItem.modelData;
                         sizeDropdownOverlay.visible = false;

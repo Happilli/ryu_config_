@@ -30,7 +30,7 @@ Item {
         innerRadius: 2
         color: Theme.primaryColor
         handleColor: Theme.primaryColor
-        trackColor: Theme.surfaceBright
+        trackColor: Theme.cardInner
     }
 
     component VSlider: Item {
@@ -73,9 +73,9 @@ Item {
             innerRadius: 4
             borderWidth: 1
             borderColor: Theme.outlineVariant
-            color: Theme.primaryContainer
+            color: Theme.primaryColor
             handleColor: Theme.primaryColor
-            trackColor: Theme.surfaceContainer
+            trackColor: Theme.cardInner
             iconText: vs.currentIcon
             iconSize: 22
             iconColor: Theme.onPrimary
@@ -84,7 +84,7 @@ Item {
     }
 
     component ToggleButton: MaterialIconButton {
-        property color offColor: Theme.surfaceContainerHigh
+        property color offColor: Theme.card
         property color offIconColor: Theme.onSurface
 
         width: 48
@@ -97,7 +97,7 @@ Item {
         springDamping: 0.38
         iconSize: 18
         color: offColor
-        checkedColor: Theme.primaryContainer
+        checkedColor: Theme.primaryColor
         iconColor: offIconColor
         checkedIconColor: Theme.onPrimary
         borderWidth: 1
@@ -203,9 +203,6 @@ Item {
             anchors.bottom: _sliders.top
             anchors.bottomMargin: 6
             cardRadius: 20
-            surface: Theme.surfaceContainer
-            borderColor: Theme.outlineVariant
-            borderWidth: 1
 
             Uptime {
                 anchors.fill: parent
@@ -228,7 +225,7 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     text: "G"
                     font.pixelSize: 14
-                    color: Theme.onSurface
+                    color: Theme.textSecondary
                 }
 
                 ThinSlider {
@@ -252,7 +249,7 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     text: "T"
                     font.pixelSize: 14
-                    color: Theme.onSurface
+                    color: Theme.textSecondary
                 }
 
                 ThinSlider {

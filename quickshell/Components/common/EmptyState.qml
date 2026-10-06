@@ -19,7 +19,7 @@ Column {
         anchors.horizontalCenter: parent.horizontalCenter
         visible: a.subtitle !== ""
         text: a.subtitle
-        color: Theme.onSurface
+        color: Theme.textSecondary
         font.pixelSize: 13
     }
 }

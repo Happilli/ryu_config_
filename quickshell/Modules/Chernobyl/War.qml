@@ -52,7 +52,7 @@ Item {
                     font.pixelSize: 11
                     font.weight: Font.Medium
                     font.letterSpacing: 1.1
-                    color: Theme.onSurface
+                    color: Theme.textSecondary
                 }
 
                 Text {
@@ -68,7 +68,7 @@ Item {
                 height: 26
                 width: dateText.width + 20
                 cardRadius: 8
-                surface: Theme.surfaceContainerLow
+                surface: Theme.card
                 borderColor: Theme.outlineVariant
                 borderWidth: 1
                 anchors.verticalCenter: parent.verticalCenter
@@ -93,7 +93,7 @@ Item {
             width: parent.width - parent.leftPadding - parent.rightPadding
             height: cardContent.implicitHeight + 32
             cardRadius: 12
-            surface: Theme.surfaceContainerLow
+            surface: Theme.card
             borderColor: Theme.outlineVariant
             borderWidth: 1
 
@@ -120,7 +120,7 @@ Item {
                 Text {
                     text: root.war.challenge?.description || ""
                     font.pixelSize: 12
-                    color: Theme.onSurface
+                    color: Theme.textSecondary
                     width: parent.width
                     wrapMode: Text.WordWrap
                     lineHeight: 1.5

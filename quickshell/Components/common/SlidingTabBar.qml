@@ -10,7 +10,7 @@ Rectangle {
 
     height: 42
     radius: height / 2
-    color: Theme.surfaceContainerLow
+    color: Theme.shell
     border.width: 1
     border.color: Theme.outlineVariant
     width: rowContent.implicitWidth + 8
@@ -45,9 +45,7 @@ Rectangle {
             width: measureRow.children[root.currentIndex] ? measureRow.children[root.currentIndex].implicitWidth + 24 : 0
             height: parent.height
             radius: height / 2
-            color: Theme.primaryContainer
-            border.color: Theme.primaryColor
-            border.width: 1
+            color: Theme.primaryColor
             Behavior on x {
                 NumberAnimation {
                     duration: 380
@@ -84,7 +82,7 @@ Rectangle {
                         text: tabItem.modelData
                         font.pixelSize: 14
                         font.weight: tabItem.isActive ? Font.Medium : Font.Normal
-                        color: tabItem.isActive ? Theme.onPrimaryContainer : Theme.onSurface
+                        color: tabItem.isActive ? Theme.onPrimary : Theme.textSecondary
                         Behavior on color {
                             ColorAnimation {
                                 duration: 200

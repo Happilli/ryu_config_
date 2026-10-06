@@ -79,12 +79,12 @@ Item {
             ClippingRectangle {
                 anchors.fill: parent
                 radius: 12
-                color: workspaceWrapper.isDropTarget ? Theme.accentColor : workspaceWrapper.isActive ? Theme.surfaceContainerHigh : Theme.surfaceColor
+                color: workspaceWrapper.isDropTarget ? Theme.primaryContainer : workspaceWrapper.isActive ? Theme.card : Theme.shell
 
                 Text {
                     anchors.centerIn: parent
                     text: root.jpN[workspaceWrapper.workspaceId - 1] || workspaceWrapper.workspaceId
-                    color: Theme.textColor
+                    color: Theme.textPrimary
                     font.pixelSize: 48
                     font.weight: Font.DemiBold
                     opacity: 0.1
@@ -95,7 +95,7 @@ Item {
                     anchors.bottom: parent.bottom
                     anchors.margins: 6
                     text: workspaceWrapper.workspaceId
-                    color: Theme.textColor
+                    color: Theme.textPrimary
                     font.pixelSize: 11
                     font.weight: Font.Medium
                     opacity: 0.45
@@ -156,7 +156,7 @@ Item {
                             color: Theme.errorColor
                             radius: 4
                             visible: windowItem.isOutOfBounds
-                            border.color: Theme.outlineColor
+                            border.color: Theme.outline
                             border.width: 2
                             opacity: 0.4
                         }
@@ -229,7 +229,7 @@ Item {
                 color: "transparent"
                 radius: 12
                 border.width: (workspaceWrapper.isDropTarget || workspaceWrapper.isActive) ? 2 : 1
-                border.color: (workspaceWrapper.isDropTarget || workspaceWrapper.isActive) ? Theme.accentColor : Qt.rgba(Theme.textColor.r, Theme.textColor.g, Theme.textColor.b, 0.35)
+                border.color: (workspaceWrapper.isDropTarget || workspaceWrapper.isActive) ? Theme.primaryColor : Theme.divider
 
                 Behavior on border.color {
                     ColorAnimation {

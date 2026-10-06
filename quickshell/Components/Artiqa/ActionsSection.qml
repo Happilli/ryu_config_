@@ -14,7 +14,7 @@ Card {
     width: 160
     height: 64
     cardRadius: 12
-    surface: Theme.surfaceContainerLow
+    surface: Theme.card
 
     Row {
         anchors.centerIn: parent

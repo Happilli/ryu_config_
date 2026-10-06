@@ -82,7 +82,7 @@ Item {
         x: targetX
         alignment: 0
         radius: 15
-        color: Theme.surfaceContainer
+        color: Theme.shell
         visible: height > 1 || isAnimating
         onHeightChanged: {
             if (height > 0 && !isOpen && !heightAnim.running) {

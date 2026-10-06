@@ -14,7 +14,7 @@ Item {
     Rectangle {
         anchors.fill: parent
         radius: 6
-        color: Theme.surfaceBright
+        color: Theme.hover(Theme.shell)
         opacity: mouse.containsMouse ? 1 : 0
 
         Behavior on opacity {
@@ -28,7 +28,7 @@ Item {
         anchors.centerIn: parent
         text: "\uf08d"
         font.pixelSize: 16
-        color: root.pinned ? Theme.primaryColor : Theme.onSurface
+        color: root.pinned ? Theme.primaryColor : Theme.textSecondary
         rotation: root.pinned ? 0 : 45
 
         Behavior on color {

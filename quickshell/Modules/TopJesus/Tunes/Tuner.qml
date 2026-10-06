@@ -112,7 +112,7 @@ Item {
                         id: trackArtist
                         text: root.player ? (root.player.trackArtist || "") : ""
                         font.pixelSize: 10
-                        color: Theme.onSurface
+                        color: Theme.textSecondary
                         width: parent.width
                         horizontalAlignment: Text.AlignRight
                         elide: Text.ElideRight
@@ -133,7 +133,7 @@ Item {
                 color: "transparent"
                 imageSource: root.player ? (root.player.trackArtUrl || "") : ""
                 borderWidth: 2
-                borderColor: Theme.accentColor
+                borderColor: Theme.primaryColor
             }
         }
 
@@ -148,7 +148,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: root.formatTime(root.player ? root.player.position : 0) + " / " + root.formatTime(root.player ? root.player.length : 0)
                 font.pixelSize: 9
-                color: Theme.onSurface
+                color: Theme.textSecondary
             }
 
             Item {
@@ -260,7 +260,7 @@ Item {
                 height: 26
                 radius: width / 2
                 color: prevMouse.containsMouse ? Theme.surfaceContainerHigh : "transparent"
-                border.color: Theme.outlineColor
+                border.color: Theme.outline
                 border.width: 2
                 visible: root.player ? root.player.canGoPrevious : false
                 anchors.verticalCenter: parent.verticalCenter
@@ -293,7 +293,7 @@ Item {
                 width: 30
                 height: 30
                 radius: width / 2
-                color: playMouse.containsMouse ? Theme.primaryContainer : Theme.primaryColor
+                color: playMouse.containsMouse ? Theme.hover(Theme.primaryColor, Theme.onPrimary) : Theme.primaryColor
                 anchors.verticalCenter: parent.verticalCenter
 
                 Behavior on color {
@@ -325,7 +325,7 @@ Item {
                 height: 26
                 radius: width / 2
                 color: nextMouse.containsMouse ? Theme.surfaceContainerHigh : "transparent"
-                border.color: Theme.outlineColor
+                border.color: Theme.outline
                 border.width: 2
                 visible: root.player ? root.player.canGoNext : false
                 anchors.verticalCenter: parent.verticalCenter

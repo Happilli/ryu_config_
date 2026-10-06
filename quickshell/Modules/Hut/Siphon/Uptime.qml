@@ -13,7 +13,7 @@ Item {
     Card {
         anchors.fill: parent
         cardRadius: 20
-        surface: Theme.surfaceContainer
+        surface: Theme.cardInner
 
         Item {
             id: pfpItem
@@ -51,7 +51,7 @@ Item {
                     width: bubbleText.implicitWidth + 20
                     height: bubbleText.implicitHeight + 12
                     cardRadius: 10
-                    surface: Theme.surfaceContainerHigh
+                    surface: Theme.card
 
                     Text {
                         id: bubbleText
@@ -67,7 +67,7 @@ Item {
                     width: 7
                     height: 7
                     cardRadius: 4
-                    surface: Theme.surfaceContainerHigh
+                    surface: Theme.card
                     x: 10
                     y: parent.height - 12
                 }
@@ -86,8 +86,7 @@ Item {
                 text: "uptime"
                 font.pixelSize: 11
                 font.weight: Font.Medium
-                color: Theme.onSurface
-                opacity: 0.7
+                color: Theme.textSecondary
             }
 
             Text {

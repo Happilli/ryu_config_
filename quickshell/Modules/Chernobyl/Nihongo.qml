@@ -80,9 +80,8 @@ Item {
             Rectangle {
                 anchors.fill: parent
                 anchors.margins: 6
-                color: Theme.surfaceContainerHighest
+                color: Theme.card
                 radius: 10
-                opacity: 0.85
 
                 Column {
                     anchors.centerIn: parent
@@ -99,7 +98,7 @@ Item {
                     Text {
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: gridItem.meaning
-                        color: Theme.onSurface
+                        color: Theme.textSecondary
                         font.pixelSize: 10
                     }
                 }
