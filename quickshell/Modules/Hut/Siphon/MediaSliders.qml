@@ -20,10 +20,6 @@ Item {
         return 1;
     }
 
-    component ColorBehavior: ColorAnimation {
-        duration: 200
-    }
-
     component ThinSlider: MaterialSlider {
         showStops: false
         showValueIndicator: false
@@ -81,10 +77,31 @@ Item {
             handleColor: Theme.primaryColor
             trackColor: Theme.surfaceContainer
             iconText: vs.currentIcon
-            iconSize: 16
-            iconColor: Theme.onPrimaryContainer
+            iconSize: 22
+            iconColor: Theme.onPrimary
             onMoved: vs.moved(slider.value)
         }
+    }
+
+    component ToggleButton: MaterialIconButton {
+        property color offColor: Theme.surfaceContainerHigh
+        property color offIconColor: Theme.onSurface
+
+        width: 48
+        height: 48
+        type: MaterialIconButton.Outlined
+        sizeStyle: MaterialIconButton.Medium
+        shape: MaterialIconButton.Square
+        checkable: true
+        springStiffness: 480
+        springDamping: 0.38
+        iconSize: 18
+        color: offColor
+        checkedColor: Theme.primaryContainer
+        iconColor: offIconColor
+        checkedIconColor: Theme.onPrimary
+        borderWidth: 1
+        borderColor: Theme.outlineVariant
     }
 
     Row {
@@ -156,23 +173,17 @@ Item {
         anchors.bottom: parent.bottom
         spacing: 6
 
-        IconButton {
-            active: !OsdConfig.sinkMuted
-            activeColor: Theme.primaryContainer
-            inactiveColor: Theme.errorContainer
-            activeIconColor: Theme.onPrimaryContainer
-            inactiveIconColor: Theme.onErrorContainer
-            icon: ["\uf026", "\uf027", "\uf027", "\uf028"][root.volumeLevel]
+        ToggleButton {
+            checked: !OsdConfig.sinkMuted
+            offColor: Theme.errorContainer
+            offIconColor: Theme.onErrorContainer
+            iconText: ["\uf026", "\uf027", "\uf027", "\uf028"][root.volumeLevel]
             onClicked: OsdConfig.toggleMute()
         }
 
-        IconButton {
-            active: CommunicationConfig.hyprsunsetActive
-            activeColor: Theme.primaryContainer
-            inactiveColor: Theme.surfaceContainer
-            activeIconColor: Theme.onPrimaryContainer
-            inactiveIconColor: Theme.onSurface
-            icon: "\ueeef"
+        ToggleButton {
+            checked: CommunicationConfig.hyprsunsetActive
+            iconText: "\ueeef"
             onClicked: CommunicationConfig.toggle()
         }
     }
@@ -255,43 +266,6 @@ Item {
                     onMoved: CommunicationConfig.setTemperature(tempSlider.value)
                 }
             }
-        }
-    }
-
-    component IconButton: Item {
-        id: iconButton
-        width: 48
-        height: 48
-        required property bool active
-        required property color activeColor
-        required property color inactiveColor
-        required property color activeIconColor
-        required property color inactiveIconColor
-        required property string icon
-        signal clicked
-
-        Card {
-            anchors.fill: parent
-            cardRadius: 14
-            surface: iconButton.active ? iconButton.activeColor : iconButton.inactiveColor
-            borderColor: Theme.outlineVariant
-            borderWidth: 1
-        }
-
-        Text {
-            anchors.centerIn: parent
-            text: iconButton.icon
-            font.pixelSize: 15
-            color: iconButton.active ? iconButton.activeIconColor : iconButton.inactiveIconColor
-            Behavior on color {
-                ColorBehavior {}
-            }
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            cursorShape: Qt.PointingHandCursor
-            onClicked: iconButton.clicked()
         }
     }
 }

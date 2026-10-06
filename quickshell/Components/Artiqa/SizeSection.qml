@@ -1,5 +1,6 @@
 pragma ComponentBehavior: Bound
 import QtQuick
+import Ryu.Extraa
 import qs.Components.common
 import qs.Services.Theme
 
@@ -13,17 +14,17 @@ Card {
     width: 100
     height: 64
 
-    MorphButton {
-        id: sizeButton
+    MaterialIconButton {
         anchors.centerIn: parent
         width: 84
         height: 52
-        baseRadius: 8
-        contentPixelSize: 24
-        label: sizeSection.currentSize
-        inactiveText: Theme.onSurface
-        hoverColor: Theme.surfaceContainerHigh
-        hoverBorderWidth: 1
+        type: MaterialIconButton.Outlined
+        shape: MaterialIconButton.Square
+        iconSize: 24
+        iconText: String(sizeSection.currentSize)
+        iconColor: Theme.onSurface
+        borderColor: Theme.outlineVariant
+        borderWidth: 1
         onClicked: {
             var pt = sizeSection.mapToItem(null, sizeSection.width / 2, 0);
             sizeSection.dropdownToggled(true, pt.x, pt.y);

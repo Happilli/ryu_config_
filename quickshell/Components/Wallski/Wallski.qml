@@ -4,6 +4,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import Quickshell.Widgets
+import Ryu.Extraa
 import qs.Services.Shapes
 import qs.Services.Theme
 import qs.utils
@@ -286,52 +287,21 @@ Item {
                             }
                         }
                     }
-                    Row {
-                        id: schemeRow
-                        property int hoveredIndex: -1
-                        spacing: 4
+                    MaterialButtonGroup {
                         anchors.verticalCenter: parent.verticalCenter
-
-                        Repeater {
-                            model: Theme.schemeTypes
-                            delegate: PillSegment {
-                                id: sb
-                                required property string modelData
-                                required property int index
-
-                                readonly property real bw: sbTxt.implicitWidth + 20
-
-                                height: 44
-                                width: schemeRow.hoveredIndex === index ? bw + 14 : Math.abs(schemeRow.hoveredIndex - index) === 1 ? bw - 7 : bw
-
-                                active: Theme.currentSchemeType === modelData
-                                label: Theme.getSchemeDisplayName(modelData)
-                                contentPixelSize: 12
-                                topLeftRadius: index === 0 ? 22 : 6
-                                bottomLeftRadius: index === 0 ? 22 : 6
-                                topRightRadius: index === Theme.schemeTypes.length - 1 ? 22 : 6
-                                bottomRightRadius: index === Theme.schemeTypes.length - 1 ? 22 : 6
-                                activeBorderWidth: 1
-                                inactiveBorderWidth: 1
-                                onIsHoveredChanged: schemeRow.hoveredIndex = isHovered ? index : (schemeRow.hoveredIndex === index ? -1 : schemeRow.hoveredIndex)
-                                onClicked: Theme.setSchemeType(modelData)
-                                Behavior on width {
-                                    NumberAnimation {
-                                        duration: 220
-                                        easing.type: Easing.OutCubic
-                                    }
-                                }
-                                Text {
-                                    id: sbTxt
-                                    visible: false
-                                    text: Theme.getSchemeDisplayName(sb.modelData)
-                                    font {
-                                        pixelSize: 12
-                                        weight: sb.active ? Font.Medium : Font.Normal
-                                    }
-                                }
-                            }
-                        }
+                        variant: MaterialButtonGroup.Connected
+                        sizeStyle: MaterialButtonGroup.Small
+                        selectionMode: MaterialButtonGroup.Single
+                        labels: Theme.schemeTypes.map(t => Theme.getSchemeDisplayName(t))
+                        currentIndex: Theme.schemeTypes.indexOf(Theme.currentSchemeType)
+                        fontWeight: Font.Normal
+                        borderWidth: 1
+                        borderColor: Theme.outlineVariant
+                        color: Theme.surfaceContainer
+                        textColor: Theme.onSurface
+                        checkedColor: Theme.primaryColor
+                        checkedTextColor: Theme.onPrimary
+                        onToggled: (index, on) => Theme.setSchemeType(Theme.schemeTypes[index])
                     }
                 }
 

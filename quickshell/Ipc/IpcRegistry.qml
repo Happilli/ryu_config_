@@ -1,5 +1,6 @@
 import QtQuick
 import qs.utils
+import Quickshell.Io
 
 Item {
     id: root
@@ -29,5 +30,12 @@ Item {
     }
     RecorderIpc {
         id: recorderIpc
+    }
+    IpcHandler {
+        target: "debug"
+        function collect(): string {
+            gc();
+            return "ok";
+        }   // not named gc(), it would recurse
     }
 }

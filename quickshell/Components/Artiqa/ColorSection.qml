@@ -1,5 +1,6 @@
 pragma ComponentBehavior: Bound
 import QtQuick
+import Ryu.Extraa
 import qs.Components.common
 import qs.Services.Theme
 
@@ -21,22 +22,17 @@ Card {
         Repeater {
             model: colorSection.colorPalette
 
-            delegate: MorphButton {
-                id: colorButton
+            delegate: MaterialIconButton {
+                id: swatch
 
                 required property color modelData
 
                 width: 32
                 height: 32
-                baseRadius: 6
-                hoverRadius: 16
-                active: colorSection.currentColor === colorButton.modelData
-                activeColor: colorButton.modelData
-                inactiveColor: colorButton.modelData
-                activeBorder: Theme.primaryColor
-                activeBorderWidth: 3
-                hoverBorderWidth: 2
-                onClicked: colorSection.colorSelected(colorButton.modelData.toString())
+                type: MaterialIconButton.Filled
+                shape: colorSection.currentColor === swatch.modelData ? MaterialIconButton.Round : MaterialIconButton.Square
+                color: swatch.modelData
+                onClicked: colorSection.colorSelected(swatch.modelData.toString())
             }
         }
     }

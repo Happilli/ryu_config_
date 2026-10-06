@@ -1,11 +1,14 @@
 pragma ComponentBehavior: Bound
 import QtQuick
-import qs.Components.common
+import Ryu.Extraa
 import qs.Services.Theme
 import qs.utils
 
 Item {
     id: root
+
+    readonly property var modes: ["wallpaper", "minimal", "disabled"]
+    readonly property var trans: ["bubble", "instant"]
 
     function callIpc(method, arg) {
         if (method === "setMode")
@@ -21,68 +24,57 @@ Item {
         anchors.centerIn: parent
         spacing: 12
 
-        Row {
+        MaterialButtonGroup {
             anchors.horizontalCenter: parent.horizontalCenter
-            spacing: 8
-
-            Repeater {
-                model: ["wallpaper", "minimal", "disabled"]
-
-                delegate: OptionButton {
-                    required property string modelData
-
-                    active: WallpaperConfig.displayMode === modelData
-                    label: modelData.charAt(0).toUpperCase() + modelData.slice(1)
-                    ipcMethod: "setMode"
-                    ipcArg: modelData
-                }
-            }
+            variant: MaterialButtonGroup.Connected
+            sizeStyle: MaterialButtonGroup.Small
+            selectionMode: MaterialButtonGroup.Single
+            labels: ["Wallpaper", "Minimal", "Disabled"]
+            currentIndex: root.modes.indexOf(WallpaperConfig.displayMode)
+            borderWidth: 1
+            borderColor: Theme.outlineVariant
+            color: Theme.surfaceContainerHigh
+            textColor: Theme.onSurface
+            checkedColor: Theme.primaryColor
+            checkedTextColor: Theme.onPrimary
+            onToggled: (index, on) => root.callIpc("setMode", root.modes[index])
         }
 
         Row {
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: 8
 
-            Repeater {
-                model: ["bubble", "instant"]
-
-                delegate: OptionButton {
-                    required property string modelData
-
-                    active: WallpaperConfig.transitionType === modelData
-                    isEnabled: WallpaperConfig.displayMode === "wallpaper"
-                    label: modelData.charAt(0).toUpperCase() + modelData.slice(1)
-                    ipcMethod: "setTransition"
-                    ipcArg: modelData
-                }
+            MaterialButtonGroup {
+                variant: MaterialButtonGroup.Connected
+                sizeStyle: MaterialButtonGroup.Small
+                selectionMode: MaterialButtonGroup.Single
+                labels: ["Bubble", "Instant"]
+                currentIndex: root.trans.indexOf(WallpaperConfig.transitionType)
+                enabled: WallpaperConfig.displayMode === "wallpaper"
+                borderWidth: 1
+                borderColor: Theme.outlineVariant
+                color: Theme.surfaceContainerHigh
+                textColor: Theme.onSurface
+                checkedColor: Theme.primaryColor
+                checkedTextColor: Theme.onPrimary
+                onToggled: (index, on) => root.callIpc("setTransition", root.transitions[index])
             }
 
-            OptionButton {
-                active: WallpaperConfig.enablePanning
-                isEnabled: WallpaperConfig.displayMode === "wallpaper"
-                label: WallpaperConfig.enablePanning ? "Pan On" : "Pan Off"
-                ipcMethod: "setPanning"
-                ipcArg: WallpaperConfig.enablePanning ? "false" : "true"
+            MaterialButtonGroup {
+                variant: MaterialButtonGroup.Connected
+                sizeStyle: MaterialButtonGroup.Small
+                selectionMode: MaterialButtonGroup.Multiple
+                labels: ["Pan"]
+                checkedIndices: WallpaperConfig.enablePanning ? [0] : []
+                enabled: WallpaperConfig.displayMode === "wallpaper"
+                borderWidth: 1
+                borderColor: Theme.outlineVariant
+                color: Theme.surfaceContainerHigh
+                textColor: Theme.onSurface
+                checkedColor: Theme.primaryColor
+                checkedTextColor: Theme.onPrimary
+                onToggled: (index, on) => root.callIpc("setPanning", on ? "true" : "false")
             }
         }
-    }
-
-    component OptionButton: MorphButton {
-        id: btn
-        property string ipcMethod: ""
-        property string ipcArg: ""
-
-        width: 80
-        height: 80
-        baseRadius: 12
-        hoverRadius: 40
-        contentPixelSize: 12
-        inactiveColor: Theme.surfaceContainerLow
-        hoverColor: Theme.surfaceContainerHigh
-        inactiveBorder: Theme.outlineVariant
-        inactiveBorderWidth: 1
-        hoverBorderWidth: 1
-        activeBorderWidth: 2
-        onClicked: root.callIpc(btn.ipcMethod, btn.ipcArg)
     }
 }

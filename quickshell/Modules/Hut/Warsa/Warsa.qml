@@ -5,6 +5,7 @@ import Ryu.Sqliter
 import qs.Services.Theme
 import qs.Components.common
 import "." as LocalWarsa
+import Ryu.Extraa
 
 Item {
     id: root
@@ -62,30 +63,28 @@ Item {
                     anchors.right: parent.right
                     spacing: 6
 
-                    MorphButton {
+                    MaterialIconButton {
                         width: 40
                         height: 40
-                        baseRadius: 20
-                        hoverRadius: 20
-                        contentPixelSize: 20
-                        inactiveText: Theme.onSurface
-                        activeText: Theme.onPrimaryContainer
-                        hoverColor: Theme.primaryContainer
-                        label: "<"
+                        type: MaterialIconButton.Tonal
+                        shape: MaterialIconButton.Round
+                        iconSize: 20
+                        iconText: "<"
+                        color: Theme.surfaceContainerHigh
+                        iconColor: Theme.onSurface
                         enabled: !eventSheet.visible
                         onClicked: calendar.previousMonth()
                     }
 
-                    MorphButton {
+                    MaterialIconButton {
                         width: 40
                         height: 40
-                        baseRadius: 20
-                        hoverRadius: 20
-                        contentPixelSize: 20
-                        inactiveText: Theme.onSurface
-                        activeText: Theme.onPrimaryContainer
-                        hoverColor: Theme.primaryContainer
-                        label: ">"
+                        type: MaterialIconButton.Tonal
+                        shape: MaterialIconButton.Round
+                        iconSize: 20
+                        iconText: ">"
+                        color: Theme.surfaceContainerHigh
+                        iconColor: Theme.onSurface
                         enabled: !eventSheet.visible
                         onClicked: calendar.nextMonth()
                     }

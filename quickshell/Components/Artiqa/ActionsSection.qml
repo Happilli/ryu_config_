@@ -1,5 +1,6 @@
 pragma ComponentBehavior: Bound
 import QtQuick
+import Ryu.Extraa
 import qs.Components.common
 import qs.Services.Theme
 
@@ -19,27 +20,44 @@ Card {
         anchors.centerIn: parent
         spacing: 8
 
-        MorphButton {
+        MaterialIconButton {
             width: 42
             height: 42
-            icon: "\uf0e2"
-            isEnabled: actionsSection.canUndo
+            type: MaterialIconButton.Outlined
+            shape: MaterialIconButton.Square
+            iconSize: 20
+            iconText: "\uf0e2"
+            iconColor: Theme.onSurface
+            borderColor: Theme.outlineVariant
+            borderWidth: 1
+            enabled: actionsSection.canUndo
             onClicked: actionsSection.undoClicked()
         }
 
-        MorphButton {
+        MaterialIconButton {
             width: 42
             height: 42
-            icon: "\uf0e2"
-            iconMirrored: true
-            isEnabled: actionsSection.canRedo
+            type: MaterialIconButton.Outlined
+            shape: MaterialIconButton.Square
+            iconSize: 20
+            iconText: "\uf01e"
+            iconColor: Theme.onSurface
+            borderColor: Theme.outlineVariant
+            borderWidth: 1
+            enabled: actionsSection.canRedo
             onClicked: actionsSection.redoClicked()
         }
 
-        MorphButton {
+        MaterialIconButton {
             width: 42
             height: 42
-            icon: "\udb81\udfff"
+            type: MaterialIconButton.Outlined
+            shape: MaterialIconButton.Square
+            iconSize: 20
+            iconText: "\udb81\udfff"
+            iconColor: Theme.onSurface
+            borderColor: Theme.outlineVariant
+            borderWidth: 1
             onClicked: actionsSection.clearClicked()
         }
     }

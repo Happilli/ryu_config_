@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import qs.Services.Theme
 import Ryu.Drawness
+import Ryu.Extraa
 import "./tools/"
 import qs.Components.common
 
@@ -110,37 +111,26 @@ Item {
                 onClearClicked: drawCanvas.clear()
             }
 
-            Card {
+            MaterialIconButton {
                 id: jiggleBtn
-
                 width: 52
                 height: 52
-                cardRadius: jiggleMouse.containsMouse ? 26 : 8
-                surface: artiqa.isJiggleMode ? Theme.primaryContainer : (jiggleMouse.containsMouse ? Theme.surfaceContainerHigh : "transparent")
-                borderColor: artiqa.isJiggleMode ? Theme.primaryColor : (jiggleMouse.containsMouse ? Theme.outlineVariant : "transparent")
-                borderWidth: artiqa.isJiggleMode ? 2 : (jiggleMouse.containsMouse ? 1 : 0)
-                scale: jiggleMouse.pressed ? 0.9 : (jiggleMouse.containsMouse ? 1.05 : 1.0)
-
-                Text {
-                    anchors.centerIn: parent
-                    text: "\ued71"
-                    font.pixelSize: 22
-                    color: artiqa.isJiggleMode ? Theme.onPrimaryContainer : Theme.onSurface
-                }
-
-                MouseArea {
-                    id: jiggleMouse
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        if (artiqa.isJiggleMode) {
-                            artiqa.currentTool = artiqa.pencilTool;
-                            jiggleTool.deactivate();
-                        } else {
-                            artiqa.currentTool = artiqa.jiggleTool;
-                            jiggleTool.activate();
-                        }
+                type: MaterialIconButton.Outlined
+                sizeStyle: MaterialIconButton.Medium
+                shape: artiqa.isJiggleMode ? MaterialIconButton.Round : MaterialIconButton.Square
+                iconSize: 22
+                iconText: "\ued71"
+                color: artiqa.isJiggleMode ? Theme.primaryContainer : Theme.surfaceContainerHigh
+                iconColor: artiqa.isJiggleMode ? Theme.onPrimaryContainer : Theme.onSurface
+                borderColor: artiqa.isJiggleMode ? Theme.primaryColor : Theme.outlineVariant
+                borderWidth: 1
+                onClicked: {
+                    if (artiqa.isJiggleMode) {
+                        artiqa.currentTool = artiqa.pencilTool;
+                        jiggleTool.deactivate();
+                    } else {
+                        artiqa.currentTool = artiqa.jiggleTool;
+                        jiggleTool.activate();
                     }
                 }
             }
@@ -185,19 +175,19 @@ Item {
             Repeater {
                 model: [2, 4, 6, 8, 10]
 
-                delegate: MorphButton {
+                delegate: MaterialIconButton {
                     id: sizeItem
                     required property int modelData
+                    readonly property bool selected: sizeSection.currentSize === sizeItem.modelData
 
                     width: 68
                     height: 36
-                    baseRadius: 8
-                    hoverRadius: 18
-                    active: sizeSection.currentSize === sizeItem.modelData
-                    label: sizeItem.modelData
-                    contentPixelSize: 18
-                    activeBorderWidth: 2
-                    hoverBorderWidth: 1
+                    type: MaterialIconButton.Filled
+                    shape: sizeItem.selected ? MaterialIconButton.Round : MaterialIconButton.Square
+                    iconSize: 18
+                    iconText: String(sizeItem.modelData)
+                    color: sizeItem.selected ? Theme.primaryContainer : Theme.surfaceContainerHigh
+                    iconColor: sizeItem.selected ? Theme.onPrimaryContainer : Theme.onSurface
                     onClicked: {
                         sizeSection.currentSize = sizeItem.modelData;
                         sizeDropdownOverlay.visible = false;
