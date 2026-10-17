@@ -1,5 +1,5 @@
 return {
-	qs = "qs -p ~/.config/quickshell/ryu-shell/",
+	qs = "qs -p ~/.config/quickshell/phoenix/",
 	terminal = "kitty",
 	browser = "helium-browser",
 

@@ -8,12 +8,12 @@ local audio_source = vars.audio_monitor
 local exec_binds = {
 	{
 		mainMod .. " + PRINT",
-		qs .. " ipc call screenshot captureRegion",
+		qs .. " ipc call screenshot region",
 		{ locked = true },
 	},
 	{
 		"PRINT",
-		qs .. " ipc call screenshot capture",
+		qs .. " ipc call screenshot full",
 		{ locked = true },
 	},
 	{
@@ -23,7 +23,7 @@ local exec_binds = {
 	},
 	{
 		mainMod .. " + R",
-		qs .. " ipc call recorder toggle " .. audio_source,
+		qs .. " ipc call recorder toggleScreen " .. audio_source,
 		{ locked = true },
 	},
 	{
@@ -36,7 +36,7 @@ local exec_binds = {
 	{ mainMod .. " + L", "loginctl lock-session" },
 
 	{ mainMod .. " + N", qs .. " ipc call communication toggle" },
-	{ mainMod .. " + period", qs .. " ipc call chernobyl toggle" },
+	{ mainMod .. " + period", qs .. " ipc call clipboard toggle" },
 	{ "ALT + W", qs .. " ipc call artiqa toggle" },
 	{ "ALT + Q", "qtcreator" },
 	{

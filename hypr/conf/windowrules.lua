@@ -22,6 +22,13 @@ local window_rules = {
 		size = "540 1050",
 		move = "1280 10",
 	},
+	{
+		name = "phoenix-settings",
+		match = { class = "^org\\.quickshell$", title = "^Phoenix Settings$" },
+		float = true,
+		size = "1200 900",
+		center = true,
+	},
 }
 
 for _, rule in ipairs(window_rules) do

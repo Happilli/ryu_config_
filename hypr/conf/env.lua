@@ -3,10 +3,9 @@ local envs = {
 	{ "HYPRCURSOR_SIZE", "24" },
 	{ "XCURSOR_THEME", "Bibata-Modern-Classic" },
 	{ "HYPRCURSOR_THEME", "Bibata-Modern-Classic" },
-	{ "_JAVA_AWT_WM_NONREPARENTING", "1" },
-	{ "JBR_WAYLAND", "1" },
 	{ "ELECTRON_OZONE_PLATFORM_HINT", "auto" },
 	{ "QT_QPA_PLATFORMTHEME", "xdgdesktopportal" },
+	{ "QS_ICON_THEME", "Adwaita" },
 }
 
 for _, e in ipairs(envs) do

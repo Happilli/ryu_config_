@@ -6,7 +6,7 @@ reload_apps_list = []
 [config.reload]
 [templates.quickshell]
 input_path = "~/.config/matugen/templates/quickshell.json"
-output_path = "~/.local/state/safalQuick/colors.json"
+output_path = "~/.local/state/ryu/colors.json"
 
 [templates.kitty]
 input_path = "~/.config/matugen/templates/kitty.conf"
@@ -15,7 +15,7 @@ post_hook = 'pkill -SIGUSR1 kitty'
 
 [templates.monkeytype]
 input_path  = "~/.config/matugen/templates/monkeytype.json"
-output_path = "~/.local/state/safalQuick/monkeytype.json"
+output_path = "~/.local/state/ryu/monkeytype.json"
 
 [templates.hyprland]
 input_path  = "~/.config/matugen/templates/colors.lua"
