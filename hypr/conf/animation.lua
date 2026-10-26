@@ -1,15 +1,32 @@
-hl.config({ animations = { enabled = true } })
+local s = require("conf.settings")
 
-hl.curve("spring_workspace", { type = "spring", mass = 0.8, stiffness = 740, dampening = 25 })
-hl.curve("spring_special", { type = "spring", mass = 0.7, stiffness = 720, dampening = 25 })
-hl.curve("spring_move", { type = "spring", mass = 0.8, stiffness = 720, dampening = 25 })
+hl.config({ animations = { enabled = s.animations_enabled } })
+
+local function spring(name)
+	hl.curve("spring_" .. name, {
+		type = "spring",
+		mass = s["spring_" .. name .. "_mass"],
+		stiffness = s["spring_" .. name .. "_stiffness"],
+		dampening = s["spring_" .. name .. "_dampening"],
+	})
+end
+
+spring("workspace")
+spring("special")
+spring("move")
 
 hl.animation({ leaf = "windowsIn", enabled = false })
 hl.animation({ leaf = "border", enabled = false })
 hl.animation({ leaf = "borderangle", enabled = false })
 hl.animation({ leaf = "windowsOut", enabled = false })
 hl.animation({ leaf = "fadeIn", enabled = false })
-hl.animation({ leaf = "windowsMove", enabled = true, speed = 1.0, spring = "spring_move", style = "slide" })
 hl.animation({ leaf = "fadeOut", enabled = false })
-hl.animation({ leaf = "workspaces", enabled = true, speed = 1.0, spring = "spring_workspace", style = "slide" })
-hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 1.0, spring = "spring_special", style = "slidevert" })
+hl.animation({ leaf = "windowsMove", enabled = true, speed = s.anim_speed, spring = "spring_move", style = "slide" })
+hl.animation({ leaf = "workspaces", enabled = true, speed = s.anim_speed, spring = "spring_workspace", style = "slide" })
+hl.animation({
+	leaf = "specialWorkspace",
+	enabled = true,
+	speed = s.anim_speed,
+	spring = "spring_special",
+	style = "slidevert",
+})

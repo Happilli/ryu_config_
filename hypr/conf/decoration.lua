@@ -1,14 +1,18 @@
+local s = require("conf.settings")
+
 hl.config({
 	decoration = {
-		active_opacity = 1,
-		inactive_opacity = 1,
-		rounding = 0,
+		active_opacity = s.active_opacity,
+		inactive_opacity = s.inactive_opacity,
+		rounding = s.rounding,
 		shadow = {
-			enabled = false,
+			enabled = s.shadow_enabled,
 		},
-		dim_inactive = false,
+		dim_inactive = s.dim_inactive,
 		blur = {
-			enabled = false,
+			enabled = s.blur_enabled,
+			size = s.blur_size,
+			passes = s.blur_passes,
 		},
 	},
 })

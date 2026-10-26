@@ -18,7 +18,7 @@ local exec_binds = {
 	},
 	{
 		" ALT + PRINT",
-		qs .. " ipc call screenshot captureLasso",
+		qs .. " ipc call screenshot lasso",
 		{ locked = true },
 	},
 	{
@@ -37,7 +37,7 @@ local exec_binds = {
 
 	{ mainMod .. " + N", qs .. " ipc call communication toggle" },
 	{ mainMod .. " + period", qs .. " ipc call clipboard toggle" },
-	{ "ALT + W", qs .. " ipc call artiqa toggle" },
+	{ "ALT + W", qs .. " ipc call settings toggle" },
 	{ "ALT + Q", "qtcreator" },
 	{
 		"ALT + R",

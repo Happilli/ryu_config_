@@ -1,16 +1,17 @@
+local s = require("conf.settings")
 local colors = require("conf.colors")
 
 hl.config({
 	general = {
-		gaps_in = 2,
-		gaps_out = 10,
-		border_size = 1,
+		gaps_in = s.gaps_in,
+		gaps_out = s.gaps_out,
+		border_size = s.border_size,
 		col = {
-			active_border = { colors = { colors.active_border_1, colors.active_border_2 }, angle = 45 },
+			active_border = { colors = { colors.active_border_1 }, angle = s.border_angle },
 			inactive_border = "0x00000000",
 		},
-		resize_on_border = false,
-		allow_tearing = false,
-		layout = "dwindle",
+		resize_on_border = s.resize_on_border,
+		allow_tearing = s.allow_tearing,
+		layout = s.layout,
 	},
 })
