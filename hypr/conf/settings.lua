@@ -1,6 +1,6 @@
 local settings = {}
 
-for line in io.lines(os.getenv("HOME") .. "/.config/hypr/ergonDumbah") do
+for line in io.lines(os.getenv("HOME") .. "/.config/hypr/ergon.dumbAssBitch") do
 	local k, v = line:match("(.-)=(.*)")
 	if k then
 		if v == "true" then
