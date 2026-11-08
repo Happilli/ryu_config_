@@ -16,12 +16,16 @@ local window_rules = {
 		float = true,
 	},
 	{
-		name = "waydroid_portrait",
-		match = { class = "Waydroid" },
-		float = true,
-		size = "540 1050",
-		move = "1280 10",
+		name = "no-wobble-default",
+		match = { class = ".*" },
+		no_wobble = true,
 	},
+	{
+		name = "wobble-quickshell",
+		match = { class = "^org\\.quickshell$" },
+		no_wobble = false,
+	},
+	o_wobble = false,
 }
 
 for _, rule in ipairs(window_rules) do

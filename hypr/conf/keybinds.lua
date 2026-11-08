@@ -95,3 +95,12 @@ hl.bind(mainMod .. " + T", function()
 		icon = "ok",
 	})
 end)
+
+local function wobble(on)
+	return function()
+		hl.config({ decoration = { wobble = { enabled = on } } })
+	end
+end
+
+hl.bind(mainMod .. " + mouse:272", wobble(true))
+hl.bind(mainMod .. " + mouse:272", wobble(false), { release = true })

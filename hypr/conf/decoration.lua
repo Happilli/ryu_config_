@@ -14,5 +14,13 @@ hl.config({
 			size = s.blur_size,
 			passes = s.blur_passes,
 		},
+		wobble = {
+			enabled = false,
+			mesh = 16,
+			stiffness = 120,
+			damping = 6,
+			mass = 1,
+			intensity = 0.6,
+		},
 	},
 })
