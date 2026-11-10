@@ -4,8 +4,8 @@ reload_apps_list = []
 # set_wallpaper = false
 
 [config.reload]
-[templates.quickshell]
-input_path = "~/.config/matugen/templates/quickshell.json"
+[templates.phoenix]
+input_path = "~/.config/matugen/templates/phoenix.json"
 output_path = "~/.local/state/ryu/colors.json"
 
 [templates.foot]
