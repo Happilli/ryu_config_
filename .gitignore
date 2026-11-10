@@ -1,4 +1,2 @@
-hypr/conf/colors.lua
-.luarc.json
 *.qmlls.ini
-hypr/ergon.dumbAssBitch
+sway/config.d/colors.conf

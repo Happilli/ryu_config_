@@ -8,23 +8,23 @@ reload_apps_list = []
 input_path = "~/.config/matugen/templates/quickshell.json"
 output_path = "~/.local/state/ryu/colors.json"
 
-[templates.kitty]
-input_path = "~/.config/matugen/templates/kitty.conf"
-output_path = "~/.local/state/safalQuick/kitty.conf"
-post_hook = 'pkill -SIGUSR1 kitty'
+[templates.foot]
+input_path  = "~/.config/matugen/templates/foot.ini"
+output_path = "~/.local/state/foot/colors.ini"
+post_hook   = 'sh ~/.config/matugen/foot-live.sh'
 
 [templates.monkeytype]
 input_path  = "~/.config/matugen/templates/monkeytype.json"
 output_path = "~/.local/state/ryu/monkeytype.json"
 
-[templates.hyprland]
-input_path  = "~/.config/matugen/templates/colors.lua"
-output_path = "~/.config/hypr/conf/colors.lua"
-post_hook = 'hyprctl reload'
-
 [templates.typeshi]
 input_path = "~/.config/matugen/templates/typeshi.ini"
 output_path = "~/.config/typeShi/config.ini"
+
+[templates.sway]
+input_path  = "~/.config/matugen/templates/sway-theme.conf"
+output_path = "~/.config/sway/config.d/colors.conf"
+post_hook   = 'sh ~/.config/matugen/sway-live.sh'
 
 # [templates.typeshi-flatpak]
 # input_path = "~/.config/matugen/templates/typeshi.ini"
