@@ -56,8 +56,19 @@ vim.lsp.config("clangd", {
 -- qml [for quickshelling]
 vim.lsp.config("qmlls", {
   cmd = { "qmlls6" },
-  filetypes = { "qml", "qmljs", "qtquick" }, --activate on this
+  filetypes = { "qml", "qmljs", "qtquick" },
   root_dir = vim.fs.root(0, { "*.qmlproject", ".git", "qmldir" }),
+  handlers = {
+    ["textDocument/publishDiagnostics"] = function(e, r, c)
+      r.diagnostics = vim
+        .iter(r.diagnostics)
+        :filter(function(d)
+          return not d.message:find("not declared as singleton", 1, true)
+        end)
+        :totable()
+      return vim.lsp.diagnostic.on_publish_diagnostics(e, r, c)
+    end,
+  },
 })
 
 vim.lsp.config("gopls", {

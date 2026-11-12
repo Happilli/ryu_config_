@@ -1,6 +1,3 @@
-# Main sway config - modular layout
-# Order matters: variables must be included first
-
 include /home/safalski/.config/sway/config.d/variables.conf
 include /home/safalski/.config/sway/config.d/theme.conf
 include /home/safalski/.config/sway/config.d/outputs.conf
@@ -8,3 +5,4 @@ include /home/safalski/.config/sway/config.d/input.conf
 include /home/safalski/.config/sway/config.d/autostart.conf
 include /home/safalski/.config/sway/config.d/keybinds.conf
 include /home/safalski/.config/sway/config.d/gestures.conf
+include /etc/sway/config.d/*
